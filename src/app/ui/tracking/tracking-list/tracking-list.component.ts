@@ -31,7 +31,7 @@ export class TrackingListComponent implements OnInit {
     paginationConfig: this.paginationConfig
   };
 
-  constructor(private messageService: MessageService) {
+  constructor(private message: MessageService) {
   }
 
   ngOnInit() {
@@ -48,7 +48,7 @@ export class TrackingListComponent implements OnInit {
   }
 
   load(): void {
-    this.messageService.success(`Successfully loaded  comments from service`);
+    this.message.success("Successfully loaded  comments from service");
   }
 
   clear(showMsg: boolean = true): void {
@@ -56,7 +56,7 @@ export class TrackingListComponent implements OnInit {
     this.updateRows();
 
     if (showMsg) {
-      this.messageService.info('Cleared data');
+      this.message.info('Cleared data');
     }
   }
 

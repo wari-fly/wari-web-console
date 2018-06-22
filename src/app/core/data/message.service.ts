@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Notification } from 'patternfly-ng';
-import { NotificationType } from 'patternfly-ng';
-import { NotificationService } from 'patternfly-ng';
-import { NotificationEvent } from 'patternfly-ng';
+import { NotificationService, NotificationType, NotificationEvent, Notification } from 'patternfly-ng';
 import { MessageHistory } from '../model/message-history';
-
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +8,6 @@ import { MessageHistory } from '../model/message-history';
 export class MessageService {
 
   private messageHistory: MessageHistory[] = [];
-
-  // css classes for the notification dropdown menu
   private classMap: Map<string, string> = new Map()
     .set(NotificationType.SUCCESS, 'pficon-ok')
     .set(NotificationType.SUCCESS, 'pficon-ok')
@@ -21,8 +15,7 @@ export class MessageService {
     .set(NotificationType.WARNING, 'pficon-warning-triangle-o')
     .set(NotificationType.DANGER, 'pficon-error-circle-o');
 
-  constructor(private notificationService: NotificationService) {
-  }
+  constructor(private notificationService: NotificationService) { }
 
   get(): Notification[] {
     return this.notificationService.getNotifications();
@@ -51,8 +44,7 @@ export class MessageService {
   private notify(type: string, msg: string): void {
     setTimeout(function (history, map) {
       history.push({ class: map.get(type), msg: msg });
-    }, 8000, this.messageHistory, this.classMap);
-
+    }, 1000, this.messageHistory, this.classMap);
     this.notificationService.message(type, null, msg, false, null, null);
   }
 

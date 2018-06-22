@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from '../../core/data/message.service';
+import { Notification, NotificationEvent } from 'patternfly-ng';
 
 @Component({
   selector: 'wari-shell-notification',
@@ -7,11 +8,15 @@ import { MessageService } from '../../core/data/message.service';
   styleUrls: ['./shell-notification.component.scss']
 })
 export class ShellNotificationComponent implements OnInit {
-  notifications: any[];
-  constructor(public messageService: MessageService) { }
-
-  ngOnInit() {
-    this.notifications = this.messageService.get();
+  notifications: Notification[];
+  constructor(public message: MessageService) {
   }
 
+  ngOnInit() {
+    this.notifications = this.message.get();
+  }
+
+  close(event: NotificationEvent) {
+    this.message.close(event);
+  }
 }

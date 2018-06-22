@@ -1,14 +1,14 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { MessageService } from "./data/message.service";
 import {
   InfoStatusCardModule,
   EmptyStateModule,
   NavigationModule,
   ToastNotificationListModule,
   TableModule,
+  CardModule,
   NotificationService,
-  CardModule
+  NotificationModule
 } from "patternfly-ng";
 
 import { McBreadcrumbsModule } from "ngx-breadcrumbs";
@@ -39,18 +39,20 @@ import { FirebaseService } from "./data/firebase.service";
       messagingSenderId: "958166775358"
     }),
     AngularFireStorageModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+
+    NotificationModule
   ],
   declarations: [],
   providers: [
-    MessageService,
-    NotificationService,
-    FirebaseService
+    FirebaseService,
+    NotificationService
   ],
   exports: [
     McBreadcrumbsModule,
     NavigationModule,
     ToastNotificationListModule,
+    NotificationModule,
     EmptyStateModule,
     TableModule,
     InfoStatusCardModule,
@@ -61,4 +63,4 @@ import { FirebaseService } from "./data/firebase.service";
     AngularFireDatabaseModule
   ]
 })
-export class CoreModule {}
+export class CoreModule { }
