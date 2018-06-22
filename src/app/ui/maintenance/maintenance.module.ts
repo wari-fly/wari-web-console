@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MaintenanceComponent } from './maintenance.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaintenanceRoutes } from './maintenance.routes';
-import { SharedModule } from '../../shared/shared.module';
-import { CoreModule } from '../../core/core.module';
-import { RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { MaintenanceComponent } from "./maintenance.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MaintenanceRoutes } from "./maintenance.routes";
+import { SharedModule } from "../../shared/shared.module";
+import { CoreModule } from "../../core/core.module";
+import { RouterModule } from "@angular/router";
+import { MaintenanceCreateComponent } from "./maintenance-create/maintenance-create.component";
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { RouterModule } from '@angular/router';
     SharedModule,
     CoreModule
   ],
-  declarations: [MaintenanceComponent],
-  exports: [MaintenanceComponent]
+  declarations: [MaintenanceComponent, MaintenanceCreateComponent],
+  exports: [MaintenanceComponent, MaintenanceCreateComponent]
 })
-export class MaintenanceModule { }
+export class MaintenanceModule {}
