@@ -1,0 +1,42 @@
+<div class="row row-cards-pf">
+  <!-- <div class="col-md-12">
+    <div class="col-md-11"></div>
+    <div class="col-md-1">
+      <div class="form-group toolbar-pf-view-selector">
+        <button class="btn btn-primary" type="button" (click)="create()">
+          <span class="fa fa-plus-circle"></span> Create</button>
+      </div>
+    </div>
+  </div> -->
+  <div class="col-md-12">
+    <pfng-card [config]="basicConfig" (onActionSelect)="handleActionSelect($event)">
+      <div class="panel-body">
+        <div *ngFor="let filemodel of fileUploads">
+          <div class="col-lg-4">
+            <div class="row-cards-pf">
+              <div class="card-pf pfng-card-info-status card-pf-accented">
+                <div class="pfng-card-info-image">
+                  <img src="{{filemodel.url}}" alt="{{filemodel.name}}" style="max-width:200px" />
+                </div>
+                <div class="pfng-card-info-content">
+                  <h2 class="pfng-card-title">
+                    <a href="#">
+                      <span>{{filemodel.name}}</span>
+                    </a>
+                  </h2>
+                  <div class="pfng-card-info-item">VM Name: aapdemo002</div>
+                  <div class="pfng-card-info-item">Host Name: localhost.localdomian</div>
+                  <div class="pfng-card-info-item">IP Address: 10.9.62.100</div>
+                  <div class="pfng-card-info-item">Power status: on</div>
+                  <div class="pfng-card-info-item">
+                    <button (click)='delete(filemodel)' class="btn btn-danger btn-xs" style="float: right">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </pfng-card>
+  </div>
+</div>

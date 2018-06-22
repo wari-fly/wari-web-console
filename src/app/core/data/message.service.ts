@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Notification} from 'patternfly-ng';
-import {NotificationType} from 'patternfly-ng';
-import {NotificationService} from 'patternfly-ng';
-import {NotificationEvent} from 'patternfly-ng';
+import { Injectable } from '@angular/core';
+import { Notification } from 'patternfly-ng';
+import { NotificationType } from 'patternfly-ng';
+import { NotificationService } from 'patternfly-ng';
+import { NotificationEvent } from 'patternfly-ng';
 import { MessageHistory } from '../model/message-history';
 
 
@@ -49,21 +49,11 @@ export class MessageService {
   }
 
   private notify(type: string, msg: string): void {
-    // make the delay to dropdown the same as the notification fade
     setTimeout(function (history, map) {
-      history.push({
-        class: map.get(type),
-        msg: msg
-      });
+      history.push({ class: map.get(type), msg: msg });
     }, 8000, this.messageHistory, this.classMap);
 
-
-    this.notificationService.message(type,
-      null,
-      msg,
-      false,
-      null,
-      null);
+    this.notificationService.message(type, null, msg, false, null, null);
   }
 
   clear(): void {

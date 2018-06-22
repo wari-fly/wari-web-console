@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 import { CoreModule } from '../../core/core.module';
-import { TrackingComponent } from './tracking.component';
 import { TrackingRoutes } from './tracking.routes';
+import { TrackingListComponent } from './tracking-list/tracking-list.component';
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import { TrackingRoutes } from './tracking.routes';
     SharedModule,
     CoreModule
   ],
-  declarations: [TrackingComponent],
-  exports: [TrackingComponent]
+  declarations: [TrackingListComponent, TrackingListComponent],
+  exports: [TrackingListComponent]
 })
 export class TrackingModule { }

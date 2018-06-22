@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard.component';
+import { DashboardListComponent } from './dashboard-list/dashboard-list.component';
 
 export const DashboardRoutes: Routes = [
-    { path: '', component: DashboardComponent, data: { breadcrumbs: true, text: 'Dashboard' } }
+    { path: '', component: DashboardListComponent, data: { breadcrumbs: true, text: 'Dashboard' } }
 ];

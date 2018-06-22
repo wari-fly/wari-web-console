@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MessageService } from "./data/message.service";
-import { CommentService } from "./data/comment.service";
 import {
   InfoStatusCardModule,
   EmptyStateModule,
@@ -46,7 +45,6 @@ import { FirebaseService } from "./data/firebase.service";
   providers: [
     MessageService,
     NotificationService,
-    CommentService,
     FirebaseService
   ],
   exports: [

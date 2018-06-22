@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import * as firebase from "firebase";
 import { FileModel } from "../model/file.model";
-import { AngularFireStorage } from "angularfire2/storage";
+import { MessageService } from "./message.service";
 
 @Injectable({
   providedIn: "root"
@@ -10,32 +10,21 @@ import { AngularFireStorage } from "angularfire2/storage";
 export class FirebaseService {
   private basePath = "/wari";
 
-  constructor(private db: AngularFireDatabase) {}
+  constructor(private message: MessageService, private db: AngularFireDatabase) { }
 
   save(filemodel: FileModel, progress: { percentage: number }) {
     const storageRef = firebase.storage().ref();
-    const uploadTask = storageRef
-      .child(`${this.basePath}/${filemodel.file.name}`)
-      .put(filemodel.file);
+    const uploadTask = storageRef.child(`${this.basePath}/${filemodel.file.name}`).put(filemodel.file);
 
-    uploadTask.on(
-      firebase.storage.TaskEvent.STATE_CHANGED,
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       snapshot => {
         // in progress
         const snap = snapshot as firebase.storage.UploadTaskSnapshot;
-        progress.percentage = Math.round(
-          (snap.bytesTransferred / snap.totalBytes) * 100
-        );
+        progress.percentage = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
       },
-      error => {
-        // fail
-        console.log(error);
-      },
+      error => { this.message.error("Error al cargar el archivo."); },
       async () => {
-        // success
-
         const url = await uploadTask.snapshot.ref.getDownloadURL();
-        console.log(url);
         filemodel.url = url;
         filemodel.name = filemodel.file.name;
         this.saveFileData(filemodel);

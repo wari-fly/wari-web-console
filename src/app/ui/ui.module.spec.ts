@@ -1,10 +1,10 @@
-import { UiModule } from './ui.module';
+import { WariUIModule } from './ui.module';
 
 describe('UiModule', () => {
-  let uiModule: UiModule;
+  let uiModule: WariUIModule;
 
   beforeEach(() => {
-    uiModule = new UiModule();
+    uiModule = new WariUIModule();
   });
 
   it('should create an instance', () => {

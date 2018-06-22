@@ -3,11 +3,11 @@ import { EmptyStateConfig } from 'patternfly-ng';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'wari-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'wari-dashboard-list',
+  templateUrl: './dashboard-list.component.html',
+  styleUrls: ['./dashboard-list.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardListComponent implements OnInit {
 
   emptyStateConfig: EmptyStateConfig = {
     iconStyleClass: 'fa fa-arrow-circle-left',
@@ -20,5 +20,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
   }
+
 
 }

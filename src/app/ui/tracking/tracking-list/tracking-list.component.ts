@@ -1,17 +1,13 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { PaginationConfig, PaginationEvent, TableConfig } from 'patternfly-ng';
-import { MessageService } from '../../core/data/message.service';
-import { CommentService } from '../../core/data/comment.service';
+import { Component, OnInit } from '@angular/core';
+import { MessageService } from '../../../core/data/message.service';
+import { PaginationConfig, TableConfig, PaginationEvent } from 'patternfly-ng';
 
 @Component({
-  selector: 'wari-tracking',
-  templateUrl: './tracking.component.html',
-  styleUrls: ['./tracking.component.scss']
+  selector: 'wari-tracking-list',
+  templateUrl: './tracking-list.component.html',
+  styleUrls: ['./tracking-list.component.scss']
 })
-export class TrackingComponent implements AfterViewInit {
-
-  constructor(private messageService: MessageService, private commentService: CommentService) {
-  }
+export class TrackingListComponent implements OnInit {
 
   rows: Comment[] = [];
   allRows: Comment[] = [];
@@ -35,6 +31,13 @@ export class TrackingComponent implements AfterViewInit {
     paginationConfig: this.paginationConfig
   };
 
+  constructor(private messageService: MessageService) {
+  }
+
+  ngOnInit() {
+
+  }
+
   handlePage($event: PaginationEvent): void {
     this.updateRows();
   }
@@ -45,17 +48,7 @@ export class TrackingComponent implements AfterViewInit {
   }
 
   load(): void {
-    this.commentService.getComments()
-      .subscribe(res => {
-        this.allRows = res;
-
-        if (this.allRows != null) {
-          this.messageService.success(`Successfully loaded ${this.allRows.length} comments from service`);
-          this.paginationConfig.totalItems = this.allRows.length;
-          this.updateRows();
-        }
-
-      });
+    this.messageService.success(`Successfully loaded  comments from service`);
   }
 
   clear(showMsg: boolean = true): void {
