@@ -9,10 +9,12 @@ import { MessageService } from '../../core/data/message.service';
 })
 export class ShellHeaderComponent implements OnInit {
   messageHistory: MessageHistory[];
-  constructor(public messageService: MessageService) { }
+  constructor(public message: MessageService) { }
 
   ngOnInit() {
-    this.messageHistory = this.messageService.getHistory();
+    this.messageHistory = this.message.getHistory();
   }
-
+  clear() {
+    this.message.clear();
+  }
 }
