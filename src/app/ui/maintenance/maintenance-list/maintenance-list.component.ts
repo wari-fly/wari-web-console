@@ -18,7 +18,7 @@ import { FirebaseService } from "../../../core/data/firebase.service";
 export class MaintenanceListComponent implements OnInit {
 
   basicConfig: CardConfig = { title: "Proyecto wari", noPadding: true, action: { id: "create", hypertext: 'Add New Location', iconStyleClass: 'fa fa-plus-circle' } };
-  fileUploads: any[];
+  files: any[];
 
   constructor(
     private messageService: MessageService,
@@ -28,10 +28,10 @@ export class MaintenanceListComponent implements OnInit {
   ) { }
   ngOnInit() {
     this.uploadService
-      .getFiles(20)
+      .getFiles()
       .snapshotChanges()
       .subscribe(result => {
-        this.fileUploads = result.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+        this.files = result.map(c => ({ key: c.payload.key, ...c.payload.val() }));
         this.messageService.success("Successfully loaded card view");
       });
   }

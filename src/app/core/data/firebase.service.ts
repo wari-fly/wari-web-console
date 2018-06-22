@@ -12,39 +12,43 @@ export class FirebaseService {
 
   constructor(private message: MessageService, private db: AngularFireDatabase) { }
 
-  save(filemodel: FileModel, progress: { percentage: number }) {
+  save(model: Array<FileModel>, progress: { percentage: number }) {
     const storageRef = firebase.storage().ref();
-    const uploadTask = storageRef.child(`${this.basePath}/${filemodel.file.name}`).put(filemodel.file);
+    const data: any[] = [];
+    let size = 0;
 
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      snapshot => {
-        // in progress
-        const snap = snapshot as firebase.storage.UploadTaskSnapshot;
-        progress.percentage = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-      },
-      error => { this.message.error("Error al cargar el archivo."); },
-      async () => {
-        const url = await uploadTask.snapshot.ref.getDownloadURL();
-        filemodel.url = url;
-        filemodel.name = filemodel.file.name;
-        this.saveFileData(filemodel);
-        // uploadTask.snapshot.ref.getDownloadURL().then(function(url) {
-        //   filemodel.url = url;
-        //   filemodel.name = filemodel.file.name;
-        //   this.saveFileData(filemodel);
-        // });
-      }
-    );
+    model.forEach(filemodel => {
+      const uploadTask = storageRef.child(`${this.basePath}/${filemodel.file.name}`).put(filemodel.file);
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+        snapshot => {
+          const snap = snapshot as firebase.storage.UploadTaskSnapshot;
+          progress.percentage = Math.round((snap.bytesTransferred / (snap.totalBytes)) * 100);
+        },
+        error => {
+          this.message.error("Error al cargar algunos archivos");
+        },
+        async () => {
+          const url = await uploadTask.snapshot.ref.getDownloadURL();
+          size++;
+          data.push({ fileName: filemodel.file.name, url: url });
+          if (size == model.length) {
+            this.db.list(`${this.basePath}/`).push({ key: new Date().getTime(), url: url, files: data });
+          }
+        });
+    });
   }
 
   saveFileData(filemodel: FileModel) {
     this.db.list(`${this.basePath}/`).push(filemodel);
   }
 
-  getFiles(numberItems): AngularFireList<FileModel> {
+  getFilesToLimit(numberItems): AngularFireList<any> {
     return this.db.list(this.basePath, ref => ref.limitToLast(numberItems));
   }
 
+  getFiles(): AngularFireList<any> {
+    return this.db.list(this.basePath);
+  }
   delete(filemodel: FileModel) {
     this.deleteFileDatabase(filemodel.key)
       .then(() => {

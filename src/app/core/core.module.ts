@@ -18,6 +18,7 @@ import { AngularFireModule } from "angularfire2";
 import { AngularFireStorageModule } from "angularfire2/storage";
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { FirebaseService } from "./data/firebase.service";
+import { PreviewService } from "./data/preview.service";
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { FirebaseService } from "./data/firebase.service";
   declarations: [],
   providers: [
     FirebaseService,
+    PreviewService,
     NotificationService
   ],
   exports: [

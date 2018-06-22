@@ -1,0 +1,9 @@
+<div *ngIf="!wariFormControl.valid && wariFormControl.dirty">
+    <span *ngIf="wariFormControl.errors.required" class="help-block">Campo requerido</span>
+    <span *ngIf="wariFormControl.errors.minlength" class="help-block">Tamaño minimo es de : {{wariFormControl.errors.minlength.requiredLength}}</span>
+    <span *ngIf="wariFormControl.errors.maxlength" class="help-block">Tamaño maximo es de : {{wariFormControl.errors.maxlength.requiredLength}}</span>
+    <span *ngIf="wariFormControl.errors.pattern" class="help-block">Valor no valido</span>
+    <ng-content>
+  
+    </ng-content>
+  </div>

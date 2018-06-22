@@ -1,11 +1,45 @@
-<div *ngIf="currentFileUpload" class="progress">
-  <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
-    aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
-    {{progress.percentage}}%</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-8">
+        <h1>Creacion de Maintenance </h1>
+      </div>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="save(form)">
+      <wari-form-fields-status [wariForm]="form"></wari-form-fields-status>
+      <div class="row">
+        <div *ngIf="model" class="progress">
+          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+            aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+            {{progress.percentage}}%</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-2 col-md-2" *ngFor="let item of data">
+          <span>
+            <b>{{item.name| truncate : 15}}</b>
+          </span>
+          <img class="thumbnail" src="{{item.url}}">
+        </div>
+      </div>
+      <div class="row">
+        <wari-read-file [showFileName]="false" [multiple]="true" (complete)="onFileChange($event)"></wari-read-file>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group" [wariFormFieldValidationState]="form.get('Description')">
+            <label class="control-label" [wariFormRequiredLabel]="form.get('Description')">Descripción
+              <i class="fa fa-question-circle text-muted" tooltip="Descripción del Requerimiento" placement="top"></i>
+            </label>
+            <input formControlName="Description" type="text" class="form-control">
+            <wari-form-field-validation-messages [wariFormControl]="form.get('Description')">
+            </wari-form-field-validation-messages>
+          </div>
+        </div>
+      </div>
+      <wari-button-save [wariForm]="form" [working]="working"></wari-button-save>
+      <wari-button-cancel (wariOnCancel)="cancel()"></wari-button-cancel>
+    </form>
+    <br>
+  </div>
 </div>
-
-<label class="btn btn-default">
-  <input type="file" (change)="selectFile($event)">
-</label>
-
-<button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
