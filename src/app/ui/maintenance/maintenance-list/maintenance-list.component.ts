@@ -16,35 +16,38 @@ import { FirebaseService } from "../../../core/data/firebase.service";
   styleUrls: ['./maintenance-list.component.scss']
 })
 export class MaintenanceListComponent implements OnInit {
-
-  basicConfig: CardConfig = { title: "Proyecto wari", noPadding: true, action: { id: "create", hypertext: 'Add New Location', iconStyleClass: 'fa fa-plus-circle' } };
-  files: any[];
+  config: CardConfig;
+  sites: any[];
 
   constructor(
     private messageService: MessageService,
-    private uploadService: FirebaseService,
+    private dataservice: FirebaseService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
   ngOnInit() {
-    this.uploadService
+    this.config = { noPadding: true, topBorder: false } as CardConfig;
+    this.loadData();
+  }
+  loadData() {
+    this.dataservice
       .getFiles()
       .snapshotChanges()
       .subscribe(result => {
-        this.files = result.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-        this.messageService.success("Successfully loaded card view");
+        this.sites = result.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+        this.messageService.success("Successfully loaded Wari Proyects");
+      }, error => {
+        this.messageService.error("Error loaded Wari Proyects");
       });
   }
-
   create() {
     this.router.navigate(["./create"], { relativeTo: this.route });
   }
 
-  delete(model) {
-    this.uploadService.delete(model);
+  view(site) {
+    this.router.navigate(['view/', site.key], { relativeTo: this.route });
   }
-
-  handleActionSelect(event: CardAction): void {
-    this.router.navigate(["./" + event.id], { relativeTo: this.route });
+  edit(site) {
+    this.router.navigate(['edit/', site.key], { relativeTo: this.route });
   }
 }

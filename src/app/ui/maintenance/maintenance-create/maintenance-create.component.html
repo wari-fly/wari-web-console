@@ -1,45 +1,190 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="row">
-      <div class="col-md-8">
-        <h1>Creacion de Maintenance </h1>
+<div class="padding-1">
+  <div class="row">
+    <div class="col-sm-12">
+      <h4>Creacion de Maintenance</h4>
+      <hr/>
+    </div>
+  </div>
+  <div class="cards-pf pfng-isc-ex-container">
+    <div class="padding-top-10">
+      <div class="col-sm-12">
+        <h5>Lista de Imagenes</h5>
       </div>
     </div>
-    <form [formGroup]="form" (ngSubmit)="save(form)">
-      <wari-form-fields-status [wariForm]="form"></wari-form-fields-status>
-      <div class="row">
+    <div class="container-fluid pfng-fluid-width-container">
+      <div class="col-lg-2 col-md-2" *ngFor="let item of data">
+        <label>{{item.name| truncate : 15}}</label>
+        <img class="thumbnail" src="{{item.url}}">
+      </div>
+    </div>
+    <div class="container-fluid pfng-fluid-width-container">
+      <div class="col-sm-12">
         <div *ngIf="model" class="progress">
           <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
             aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
             {{progress.percentage}}%</div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-2 col-md-2" *ngFor="let item of data">
-          <span>
-            <b>{{item.name| truncate : 15}}</b>
-          </span>
-          <img class="thumbnail" src="{{item.url}}">
-        </div>
-      </div>
-      <div class="row">
-        <wari-read-file [showFileName]="false" [multiple]="true" (complete)="onFileChange($event)"></wari-read-file>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group" [wariFormFieldValidationState]="form.get('Description')">
-            <label class="control-label" [wariFormRequiredLabel]="form.get('Description')">Descripción
-              <i class="fa fa-question-circle text-muted" tooltip="Descripción del Requerimiento" placement="top"></i>
-            </label>
-            <input formControlName="Description" type="text" class="form-control">
-            <wari-form-field-validation-messages [wariFormControl]="form.get('Description')">
-            </wari-form-field-validation-messages>
+      <div class="col-sm-12">
+        <form [formGroup]="form" (ngSubmit)="save(form)">
+          <wari-form-fields-status [wariForm]="form"></wari-form-fields-status>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="control-label">Imagenes
+                  <i class="fa fa-question-circle text-muted" tooltip="Imagenes del sitio arquilogico" placement="top"></i>
+                </label>
+                <wari-read-file [showFileName]="false" [multiple]="true" (complete)="onFileChange($event)"></wari-read-file>
+              </div>
+            </div>
           </div>
-        </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group" [wariFormFieldValidationState]="form.get('nombre')">
+                <label class="control-label" [wariFormRequiredLabel]="form.get('nombre')">Nombre Sitio Arquiólogico
+                  <i class="fa fa-question-circle text-muted" tooltip="Nombre Sitio Arquiologico" placement="top"></i>
+                </label>
+                <input formControlName="nombre" type="text" class="form-control">
+                <wari-form-field-validation-messages [wariFormControl]="form.get('nombre')">
+                </wari-form-field-validation-messages>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group" [wariFormFieldValidationState]="form.get('ubicacion')">
+                <label class="control-label" [wariFormRequiredLabel]="form.get('ubicacion')">Ubicación geográfica 
+                  <i class="fa fa-question-circle text-muted" tooltip="relacion con los pueblos y ciudades cercanas" placement="top"></i>
+                </label>
+                <input formControlName="ubicacion" type="text" class="form-control">
+                <wari-form-field-validation-messages [wariFormControl]="form.get('ubicacion')">
+                </wari-form-field-validation-messages>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group" [wariFormFieldValidationState]="form.get('periodo')">
+                <label class="control-label" [wariFormRequiredLabel]="form.get('periodo')">Periodo cronológico
+                  <i class="fa fa-question-circle text-muted" tooltip="posicion cronologica del sitio, determinada a traves del analisis de los materiales culturales" placement="top"></i>
+                </label>
+                <input formControlName="periodo" type="text" class="form-control">
+                <wari-form-field-validation-messages [wariFormControl]="form.get('periodo')">
+                </wari-form-field-validation-messages>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group" [wariFormFieldValidationState]="form.get('altitud')">
+                <label class="control-label" [wariFormRequiredLabel]="form.get('altitud')">Altitud GPS
+                  <i class="fa fa-question-circle text-muted" tooltip="información obtenida de los planos catastrales" placement="top"></i>
+                </label>
+                <input formControlName="altitud" type="text" class="form-control">
+                <wari-form-field-validation-messages [wariFormControl]="form.get('altitud')">
+                </wari-form-field-validation-messages>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group" [wariFormFieldValidationState]="form.get('antecedente')">
+                <label class="control-label" [wariFormRequiredLabel]="form.get('antecedente')">Antecedentes
+                  <i class="fa fa-question-circle text-muted" tooltip="investigaciones previas realizadas" placement="top"></i>
+                </label>
+                <input formControlName="antecedente" type="text" class="form-control">
+                <wari-form-field-validation-messages [wariFormControl]="form.get('antecedente')">
+                </wari-form-field-validation-messages>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group" [wariFormFieldValidationState]="form.get('estado')">
+                <label class="control-label" [wariFormRequiredLabel]="form.get('estado')">Estado Conservación
+                  <i class="fa fa-question-circle text-muted" tooltip="balance preliminar de las condiciones de deterioro del sitio" placement="top"></i>
+                </label>
+                <input formControlName="estado" type="text" class="form-control">
+                <wari-form-field-validation-messages [wariFormControl]="form.get('estado')">
+                </wari-form-field-validation-messages>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <table class="table table-striped table-bordered table-hover dataTable no-footer">
+                <thead>
+                  <tr>
+                    <td class="table-view-pf-actions">
+                      <div class="table-view-pf-btn">
+                        <button (click)="addDetalleFormControl()" class="btn btn-default" type="button" ngbTooltip="" placement="top">
+                          <span class="fa fa-plus"></span>
+                        </button>
+                      </div>
+                    </td>
+                    <td colspan="3"> </td>
+                  </tr>
+                  <tr>
+                    <td class="text-right">#</td>
+                    <td class="col-md-6 text-right">Latitud</td>
+                    <td class="col-md-6 text-right">Longitud</td>
+                    <td class="text-center">Acciones</td>
+                  </tr>
+                </thead>
+                <tbody formArrayName="coordenadas">
+                  <ng-template ngFor let-item [ngForOf]="coordenadas.controls" let-i="index">
+                    <tr [formGroupName]="i">
+                      <td class="text-right">{{i+1}}</td>
+                      <td [wariFormFieldValidationState]="item.get('latitud')">
+                        <input formControlName="latitud" type="number" class="form-control text-right">
+                        <wari-form-field-validation-messages [wariFormControl]="item.get('latitud')">
+                        </wari-form-field-validation-messages>
+                      </td>
+                      <td [wariFormFieldValidationState]="item.get('logitud')">
+                        <input formControlName="logitud" type="number" class="form-control text-right">
+                        <wari-form-field-validation-messages [wariFormControl]="item.get('logitud')">
+                        </wari-form-field-validation-messages>
+                      </td>
+                      <td class=" table-view-pf-actions">
+                        <div class="table-view-pf-btn">
+                          <button (click)="removeDetalleFormControl(i)" class="btn btn-default" type="button">
+                            <span class="fa fa-trash"></span>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td class="table-view-pf-actions">
+                      <div class="table-view-pf-btn">
+                        <button (click)="addDetalleFormControl()" class="btn btn-default" type="button" ngbTooltip="" placement="top">
+                          <span class="fa fa-plus"></span>
+                        </button>
+                      </div>
+                    </td>                    
+                    <td colspan="2">
+                    </td>
+                    <td class="table-view-pf-actions">
+                      <div class="table-view-pf-btn">
+                        <button (click)="addDetalleFormControl()" class="btn btn-default" type="button">
+                          <span class="fa fa-plus"></span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group" [wariFormFieldValidationState]="form.get('descripcion')">
+                <label class="control-label" [wariFormRequiredLabel]="form.get('descripcion')">Descripcion
+                  <i class="fa fa-question-circle text-muted" ngbTooltip="segun los componentes arquitectónicos, los materiales arqueológicos encontrados en superficie" placement="right"></i>
+                </label>
+                <textarea formControlName="descripcion" rows="5" class="form-control" placeholder="componentes arquitectónicos, los materiales arqueológicos encontrados en superficie, la forma y la superposición"></textarea>
+                <wari-form-field-validation-messages [wariFormControl]="form.get('descripcion')">
+                </wari-form-field-validation-messages>
+              </div>
+            </div>
+          </div>
+          <br>
+          <wari-button-save [wariForm]="form" [working]="working"></wari-button-save>
+          <wari-button-cancel (wariOnCancel)="cancel()"></wari-button-cancel>
+        </form>
       </div>
-      <wari-button-save [wariForm]="form" [working]="working"></wari-button-save>
-      <wari-button-cancel (wariOnCancel)="cancel()"></wari-button-cancel>
-    </form>
-    <br>
+    </div>
   </div>
 </div>

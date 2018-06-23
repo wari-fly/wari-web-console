@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import * as firebase from "firebase";
-import { FileModel } from "../model/file.model";
+import { SitioModel } from "../model/sitio.model";
 import { MessageService } from "./message.service";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root"
@@ -12,13 +13,12 @@ export class FirebaseService {
 
   constructor(private message: MessageService, private db: AngularFireDatabase) { }
 
-  save(model: Array<FileModel>, progress: { percentage: number }) {
+  async save(model: SitioModel, progress: { percentage: number }) {
     const storageRef = firebase.storage().ref();
-    const data: any[] = [];
+    const documentos: any[] = [];
     let size = 0;
-
-    model.forEach(filemodel => {
-      const uploadTask = storageRef.child(`${this.basePath}/${filemodel.file.name}`).put(filemodel.file);
+    model.documentos.forEach(file => {
+      const uploadTask = storageRef.child(`${this.basePath}/${file.name}`).put(file);
       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
         snapshot => {
           const snap = snapshot as firebase.storage.UploadTaskSnapshot;
@@ -30,15 +30,21 @@ export class FirebaseService {
         async () => {
           const url = await uploadTask.snapshot.ref.getDownloadURL();
           size++;
-          data.push({ fileName: filemodel.file.name, url: url });
-          if (size == model.length) {
-            this.db.list(`${this.basePath}/`).push({ key: new Date().getTime(), url: url, files: data });
+          documentos.push(url);
+          if (size == model.documentos.length) {
+            model.key = Math.random().toString(36).substring(2);
+            model.files = documentos;
+            model.documentos = null;
+            model.imagen = url;
+            this.db.list(`${this.basePath}/`).push(model);
           }
         });
     });
+    // return new Promise((resolve, reject) => {      setTimeout(() => {        resolve(x);      }, 500);    });
+    //return this.get(model.key);
   }
 
-  saveFileData(filemodel: FileModel) {
+  saveFileData(filemodel: SitioModel) {
     this.db.list(`${this.basePath}/`).push(filemodel);
   }
 
@@ -49,10 +55,15 @@ export class FirebaseService {
   getFiles(): AngularFireList<any> {
     return this.db.list(this.basePath);
   }
-  delete(filemodel: FileModel) {
+
+  get(key: string): AngularFireList<any> {
+    return this.db.list(this.basePath, ref => ref.orderByChild("key").equalTo(key));
+  }
+
+  delete(filemodel: SitioModel) {
     this.deleteFileDatabase(filemodel.key)
       .then(() => {
-        this.deleteFileStorage(filemodel.name);
+        this.deleteFileStorage(filemodel.key);
       })
       .catch(error => console.log(error));
   }

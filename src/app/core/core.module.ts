@@ -8,7 +8,12 @@ import {
   TableModule,
   CardModule,
   NotificationService,
-  NotificationModule
+  NotificationModule,
+  WizardModule,
+  PaginationModule,
+  ActionModule,
+  ListModule,
+  ToolbarModule
 } from "patternfly-ng";
 
 import { McBreadcrumbsModule } from "ngx-breadcrumbs";
@@ -26,9 +31,16 @@ import { PreviewService } from "./data/preview.service";
     McBreadcrumbsModule.forRoot(),
     NavigationModule,
     ToastNotificationListModule,
+    NotificationModule,
     EmptyStateModule,
     TableModule,
     InfoStatusCardModule,
+    WizardModule,
+    PaginationModule,
+    ActionModule,
+    ListModule,
+    ToolbarModule,
+
     CardModule,
     BsDropdownModule.forRoot(),
     AngularFireModule.initializeApp({
@@ -40,9 +52,7 @@ import { PreviewService } from "./data/preview.service";
       messagingSenderId: "958166775358"
     }),
     AngularFireStorageModule,
-    AngularFireDatabaseModule,
-
-    NotificationModule
+    AngularFireDatabaseModule
   ],
   declarations: [],
   providers: [
@@ -57,6 +67,11 @@ import { PreviewService } from "./data/preview.service";
     NotificationModule,
     EmptyStateModule,
     TableModule,
+    WizardModule,
+    PaginationModule,
+    ActionModule,
+    ListModule,
+    ToolbarModule,
     InfoStatusCardModule,
     BsDropdownModule,
     CardModule,

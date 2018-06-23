@@ -1,0 +1,125 @@
+<div class="padding-1">
+  <div class="row">
+    <div class="col-sm-12">
+      <h4>View of Maintenance</h4>
+      <hr/>
+    </div>
+  </div>
+  <div class="cards-pf pfng-isc-ex-container"  *ngIf="site">
+    <div class="padding-top-10">
+      <div class="col-sm-12">
+        <h5>List Images</h5>
+      </div>
+    </div>
+    <div class="container-fluid pfng-fluid-width-container">
+      <div class="col-lg-2 col-md-2" *ngFor="let item of files">
+        <img class="thumbnail" src="{{item}}">
+      </div>
+    </div>
+    <div class="container-fluid pfng-fluid-width-container">
+      <div class="col-sm-6">
+        <fieldset>
+          <legend>
+            <h3>Coordenadas</h3>
+          </legend>
+        </fieldset>
+        <pfng-list [config]="listConfig" [items]="coordenadas" [itemHeadingTemplate]="itemHeadingTemplate" [itemTemplate]="itemTemplate">
+          <ng-template #itemHeadingTemplate let-item="item">
+            <div class="list-pf-left">
+              <div class="icon-placeholder"></div>
+            </div>
+            <div class="list-pf-content-wrapper">
+              <div class="list-pf-main-content">
+                <div class="list-pf-title"><i class="pficon pficon-info" tooltip="logitud"></i> COORDENADA</div>
+                <div class="list-pf-description text-overflow-pf text-center"><i class="pficon pficon-info" tooltip="logitud"></i> LATITUD</div>
+                <div class="list-pf-description text-overflow-pf text-center"><i class="pficon pficon-info " tooltip="logitud"></i> LONGITUD</div>
+              </div>            
+            </div>
+          </ng-template>
+          <ng-template #itemTemplate let-item="item" let-index="index">
+            <div class="list-pf-left">
+              <span class="fa fa-map-marker list-pf-icon list-pf-icon-bordered list-pf-icon-small" tooltip="coordenadas" placement="top"></span>
+            </div>
+            <div class="list-pf-content-wrapper">
+              <div class="list-pf-main-content">
+                <div class="list-pf-title">
+                  <span >{{item.latitud}},{{item.logitud}}</span>
+                </div>
+                <div class="list-pf-description list-group-item-text text-center">{{item.latitud}}</div>
+                <div class="list-pf-description list-group-item-text text-center">{{item.logitud}}</div>
+              </div>
+            </div>
+          </ng-template>
+        </pfng-list>
+      </div>
+      <div class="col-sm-6">
+        <fieldset>
+          <legend>
+            <h3>Informacion General</h3>
+          </legend>
+        </fieldset>
+        <dl class="dl-horizontal left">
+          <dt>
+            Nombre Sitio Arquiólogico
+            <span ngbTooltip="Nombre Sitio Arquiologico." placement="right" class="pficon pficon-help text-muted small"></span>
+          </dt>
+          <dd *ngIf="site.nombre">{{site.nombre}}</dd>
+          <dd *ngIf="!site.nombre">
+            <em>No Registrado</em>
+          </dd>
+          <dt>
+            Ubicación geográfica
+            <span ngbTooltip="relacion con los pueblos y ciudades cercanas" placement="right" class="pficon pficon-help text-muted small"></span>
+          </dt>
+          <dd *ngIf="site.ubicacion">{{site.ubicacion}}</dd>
+          <dd *ngIf="!site.ubicacion">
+            <em>No Registrado</em>
+          </dd>
+          <dt>
+            Periodo cronológico
+            <span ngbTooltip="posicion cronologica del sitio, determinada a traves del analisis de los materiales culturales" placement="right"
+              class="pficon pficon-help text-muted small"></span>
+          </dt>
+          <dd *ngIf="site.periodo">{{site.periodo}}</dd>
+          <dd *ngIf="!site.periodo">
+            <em>No Registrado</em>
+          </dd>
+          <dt>
+            Altitud GPS
+            <span ngbTooltip="información obtenida de los planos catastrales" placement="right" class="pficon pficon-help text-muted small"></span>
+          </dt>
+          <dd *ngIf="site.altitud">{{site.altitud}}</dd>
+          <dd *ngIf="!site.altitud">
+            <em>No Registrado</em>
+          </dd>
+          <dt>
+            Antecedentes
+            <span ngbTooltip="investigaciones previas realizadas" placement="right" class="pficon pficon-help text-muted small"></span>
+          </dt>
+          <dd *ngIf="site.antecedente">{{site.antecedente}}</dd>
+          <dd *ngIf="!site.antecedente">
+            <em>No Registrado</em>
+          </dd>
+          <dt>
+            Estado Conservación
+            <span ngbTooltip="balance preliminar de las condiciones de deterioro del sitio" placement="right" class="pficon pficon-help text-muted small"></span>
+          </dt>
+          <dd *ngIf="site.estado">{{site.estado}}</dd>
+          <dd *ngIf="!site.estado">
+            <em>No Registrado</em>
+          </dd>
+          <dt>
+            Descripcion
+            <span ngbTooltip="segun los componentes arquitectónicos, los materiales arqueológicos encontrados en superficie" placement="right"
+              class="pficon pficon-help text-muted small"></span>
+          </dt>
+          <dd *ngIf="site.descripcion">{{site.descripcion}}</dd>
+          <dd *ngIf="!site.descripcion">
+            <em>No Registrado</em>
+          </dd>
+        </dl>
+
+      </div>
+    </div>
+  </div>
+</div>

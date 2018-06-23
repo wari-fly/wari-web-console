@@ -1,11 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { FileModel } from "../../../core/model/file.model";
+import { SitioModel } from "../../../core/model/sitio.model";
 import { FirebaseService } from "../../../core/data/firebase.service";
 import { Router, ActivatedRoute } from "@angular/router";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormArray } from "@angular/forms";
 import { MessageService } from "../../../core/data/message.service";
-import { PreviewService } from "../../../core/data/preview.service";
-import { $ } from "protractor";
 
 @Component({
   selector: "wari-maintenance-create",
@@ -14,8 +12,8 @@ import { $ } from "protractor";
 })
 export class MaintenanceCreateComponent implements OnInit {
   files: FileList;
-  data = new Array();
-  model: Array<FileModel> = new Array<FileModel>();
+  data: any[];
+  documentos: Array<File> = new Array<File>();
   form: FormGroup;
   progress: { percentage: number } = { percentage: 0 };
 
@@ -24,8 +22,7 @@ export class MaintenanceCreateComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private message: MessageService,
-    private preview: PreviewService,
-    private uploadService: FirebaseService
+    private dataservice: FirebaseService
   ) { }
 
   ngOnInit() {
@@ -34,8 +31,28 @@ export class MaintenanceCreateComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      Description: [null, Validators.compose([Validators.maxLength(200)])]
+      nombre: [null, Validators.compose([Validators.required, Validators.maxLength(200)])],
+      ubicacion: [null, Validators.compose([Validators.required, Validators.maxLength(200)])],
+      periodo: [null, Validators.compose([Validators.maxLength(200)])],
+      altitud: [null, Validators.compose([Validators.required, Validators.maxLength(200)])],
+      antecedente: [null, Validators.compose([Validators.maxLength(200)])],
+      estado: [null, Validators.compose([Validators.required, Validators.maxLength(200)])],
+      descripcion: [null, Validators.compose([Validators.required, Validators.maxLength(200)])],
+      coordenadas: this.formBuilder.array([])
     });
+  }
+
+  addDetalleFormControl(): FormGroup {
+    const formGroup = this.formBuilder.group({
+      latitud: [null, Validators.compose([Validators.required])],
+      logitud: [null, Validators.compose([Validators.required])]
+    });
+    this.coordenadas.push(formGroup);
+    return formGroup;
+  }
+
+  removeDetalleFormControl(index) {
+    this.coordenadas.removeAt(index);
   }
 
   onFileChange($event) {
@@ -47,14 +64,32 @@ export class MaintenanceCreateComponent implements OnInit {
     }
   }
 
+  get coordenadas(): FormArray {
+    return this.form.get('coordenadas') as FormArray;
+  }
 
   save(form) {
-    const files = this.files;
-    this.files = undefined;
-    for (let index = 0; index < files.length; index++) {
-      this.model.push(new FileModel(files.item(index)));
+    if (!form.value.coordenadas || form.value.coordenadas.length === 0) {
+      this.message.warning('Warning! Is required to add at least one line.');
+      return;
     }
-    this.uploadService.save(this.model, this.progress);
+    if (!this.files) {
+      this.message.warning('Warning! Is required to add one image to archeological site.');
+      return;
+    }
+    const files = this.files;
+    for (let index = 0; index < files.length; index++) {
+      this.documentos.push(files.item(index));
+    }
+    const model: SitioModel = form.value;
+    model.documentos = this.documentos;
+
+    this.dataservice.save(model, this.progress).then(() => {
+      this.files = null;
+      this.data = [];
+      this.message.warning('Success! The archeological site has been created..');
+      this.router.navigate(['../'], { relativeTo: this.route });
+    });
   }
 
   cancel() {
