@@ -23,6 +23,6 @@ export const MaintenanceRoutes: Routes = [
   {
     path: "edit/:key",
     component: MaintenanceEditComponent,
-    data: { breadcrumbs: true, text: "View" }
+    data: { breadcrumbs: true, text: "Edit" }
   }
 ];

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './core/guard/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'wari', pathMatch: 'full' },

@@ -12,6 +12,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormFieldValidationMessagesComponent } from './components/form-field-validation-messages/form-field-validation-messages.component';
 import { TruncatePipe } from './pipe/truncate.pipe';
 import { ReadFileComponent } from './components/read-file/read-file.component';
+import { FileSizePipe } from './pipe/file-size.pipe';
+import { DropZoneDirective } from './directives/drop-zone.directive';
+import { DropZoneFileComponent } from './components/drop-zone-file/drop-zone-file.component';
 
 @NgModule({
   imports: [
@@ -22,35 +25,40 @@ import { ReadFileComponent } from './components/read-file/read-file.component';
   declarations: [
     FormFieldValidationStateDirective,
     FormRequiredLabelDirective,
+    DropZoneDirective,
 
     FormFieldsStatusComponent,
     FormFieldValidationMessagesComponent,
 
     ButtonAddComponent,
     ButtonCancelComponent,
-    ButtonSaveComponent,    
+    ButtonSaveComponent,
     ButtonDeleteComponent,
     LoadingComponent,
     ReadFileComponent,
+    DropZoneFileComponent,
 
-    TruncatePipe
-    
+    TruncatePipe,
+    FileSizePipe
   ],
   exports: [
     FormFieldValidationStateDirective,
     FormRequiredLabelDirective,
+    DropZoneDirective,
 
     FormFieldsStatusComponent,
     FormFieldValidationMessagesComponent,
 
     ButtonAddComponent,
     ButtonCancelComponent,
-    ButtonSaveComponent,    
+    ButtonSaveComponent,
     ButtonDeleteComponent,
     LoadingComponent,
     ReadFileComponent,
-    
-    TruncatePipe
+    DropZoneFileComponent,
+
+    TruncatePipe,
+    FileSizePipe
   ]
 })
 export class SharedModule { }

@@ -22,8 +22,13 @@ import { BsDropdownModule } from "ngx-bootstrap";
 import { AngularFireModule } from "angularfire2";
 import { AngularFireStorageModule } from "angularfire2/storage";
 import { AngularFireDatabaseModule } from "angularfire2/database";
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireFunctionsModule } from 'angularfire2/functions';
 import { FirebaseService } from "./data/firebase.service";
 import { PreviewService } from "./data/preview.service";
+import { AuthService } from "./data/auth.service";
+import { AuthGuard } from "./guard/auth.guard";
 
 @NgModule({
   imports: [
@@ -52,13 +57,18 @@ import { PreviewService } from "./data/preview.service";
       messagingSenderId: "958166775358"
     }),
     AngularFireStorageModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireFunctionsModule
   ],
   declarations: [],
   providers: [
     FirebaseService,
     PreviewService,
-    NotificationService
+    NotificationService,
+    AuthService,
+    AuthGuard
   ],
   exports: [
     McBreadcrumbsModule,
@@ -77,7 +87,10 @@ import { PreviewService } from "./data/preview.service";
     CardModule,
     AngularFireModule,
     AngularFireStorageModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireFunctionsModule
   ]
 })
 export class CoreModule { }
