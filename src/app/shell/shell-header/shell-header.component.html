@@ -30,12 +30,16 @@
       <div class="arrow"></div>
       <ul class="list-group">
         <li class="list-group-item app-button">
-          <a>
-            <span class="fa pficon-infrastructure"></span> Acount</a>
+          <a href="javascript:void(0);" (click)="profile()">
+            <span class="fa pficon-user"></span> Profile</a>
+        </li>
+        <li class="list-group-item app-button">
+          <a href="javascript:void(0);" (click)="register()">
+            <span class="fa pficon-users"></span> New User</a>
         </li>
         <li class="divider"></li>
         <li class="list-group-item app-button">
-          <a>
+          <a href="javascript:void(0);" (click)="logout()">
             <span class="fa pficon-on"></span> Logout</a>
         </li>
       </ul>

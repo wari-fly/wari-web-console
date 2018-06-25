@@ -3,7 +3,7 @@ import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import * as firebase from "firebase";
 import { SitioModel } from "../model/sitio.model";
 import { MessageService } from "./message.service";
-import { Observable } from "rxjs";
+import { v4 as uuid } from 'uuid';
 
 @Injectable({
   providedIn: "root"
@@ -32,7 +32,7 @@ export class FirebaseService {
           size++;
           documentos.push(url);
           if (size == model.documentos.length) {
-            model.key = Math.random().toString(36).substring(2);
+            model.key = uuid();
             model.files = documentos;
             model.documentos = null;
             model.imagen = url;

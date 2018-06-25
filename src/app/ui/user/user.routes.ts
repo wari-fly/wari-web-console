@@ -6,6 +6,5 @@ import { AuthGuard } from '../../core/guard/auth.guard';
 
 export const UserRoutes: Routes = [
     { path: '', component: UserProfileComponent, canActivate: [AuthGuard], data: { breadcrumbs: true, text: 'Profile' } },
-    { path: 'login', component: UserLoginComponent, data: { breadcrumbs: true, text: 'Login' } },
-    { path: 'form', component: UserFormComponent, canActivate: [AuthGuard], data: { breadcrumbs: true, text: 'Form' } }
+    { path: 'register', component: UserFormComponent, canActivate: [AuthGuard], data: { breadcrumbs: true, text: 'Register' } }
 ];

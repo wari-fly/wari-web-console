@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 import { AuthService } from '../data/auth.service';
 import { MessageService } from './../data/message.service';
+import { NotifyService } from '../data/notify.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthGuard implements CanActivate {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private notify: MessageService
+    private notify: NotifyService
   ) { }
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -23,9 +24,8 @@ export class AuthGuard implements CanActivate {
       map(user => !!user),
       tap(loggedIn => {
         if (!loggedIn) {
-          console.log('access denied');
-          this.notify.error('Access denied, You must be logged in!');
-          this.router.navigate(['/wari/user/login']);
+          this.notify.update('Access denied, You must be logged in!', 'error');
+          this.router.navigate(['/wari/login']);
         }
       })
     );

@@ -1,48 +1,54 @@
-<h1>Firebase User Auth Demo</h1>
+<div class="login-pf">
+  <wari-notify-message></wari-notify-message>
+  <span id="badge">
+    <img src="/assets/img/icon96.png" alt="logo" />
+  </span>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div id="brand">
+          Proyecto Wari
+        </div>
+      </div>
+      <div class="col-sm-7 col-md-6 col-lg-5 login">
+        <form [formGroup]="form" (ngSubmit)="login(form)" class="form-horizontal">
+          <wari-form-fields-status [wariForm]="form"></wari-form-fields-status>
 
-<p>
-  Learn more about
-  <a href="https://angularfirebase.com/tag/authentication">Firebase auth strategies</a>.
-</p>
-<hr>
-
-<div *ngIf="!(auth.user | async); else alreadyLoggedIn">
-
-  <h3>Social Login</h3>
-
-  <button (click)="signInWithGoogle()" class="button btn-social btn-google">
-    <i class="fa fa-google fa-lg"></i> Connect Google
-  </button>
-
-  <button (click)="signInWithGithub()" class="button btn-social btn-github" disabled>
-    <i class="fa fa-github fa-lg"></i> Connect GitHub
-  </button>
-
-  <button (click)="signInWithFacebook()" class="button  btn-social btn-facebook" disabled>
-    <i class="fa fa-facebook fa-lg"></i> Connect Facebook
-  </button>
-
-  <button (click)="signInWithTwitter()" class="button  btn-social btn-twitter" disabled>
-    <i class="fa fa-twitter fa-lg"></i> Connect Twitter
-  </button>
-
-  <hr>
-
-  <h3>Anonymous Login</h3>
-
-  <button (click)="signInAnonymously()" class="button button-info">
-    <i class="fa fa-user-secret fa-lg"></i> Connect Anonymously
-  </button>
-
-  <hr>
-
-  <wari-user-form></wari-user-form>
-
+          <div class="form-group" [wariFormFieldValidationState]="form.get('email')">
+            <label class="col-sm-3 col-md-3 control-label" [wariFormRequiredLabel]="form.get('email')">Email
+              <i class="fa fa-question-circle text-muted" tooltip="Usuario del sistema" placement="top"></i>
+            </label>
+            <div class="col-sm-9 col-md-9">
+              <input formControlName="email" type="text" class="form-control" autofocus/>
+              <wari-form-field-validation-messages [wariFormControl]="form.get('email')">
+              </wari-form-field-validation-messages>
+            </div>
+          </div>
+          <div class="form-group" [wariFormFieldValidationState]="form.get('password')">
+            <label class="col-sm-3 col-md-3 control-label" [wariFormRequiredLabel]="form.get('password')">Password
+              <i class="fa fa-question-circle text-muted" tooltip="Contraseña del sistema" placement="top"></i>
+            </label>
+            <div class="col-sm-9 col-md-9">
+              <input formControlName="password" type="password" class="form-control" />
+              <wari-form-field-validation-messages [wariFormControl]="form.get('password')">
+              </wari-form-field-validation-messages>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-xs-8 col-sm-offset-8 col-sm-6 col-md-offset-2 col-md-6">
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2"></div>
+            <div class="col-xs-1 col-sm- col-md-1">
+              <wari-button-login [wariForm]="form" [working]="working"></wari-button-login>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-5 col-md-6 col-lg-7 details">
+        <p>
+          <strong>Welcome to wari - proyect | open source project!</strong>
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
-
-<ng-template #alreadyLoggedIn>
-  <p class="text-success">
-    You are logged in
-    <i class="fa fa-thumbs-up"></i>
-  </p>
-</ng-template>

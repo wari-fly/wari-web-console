@@ -7,6 +7,7 @@ import { UiComponent } from "./ui.component";
 import { UIRoutes } from "./ui.routes";
 import { SharedModule } from "../shared/shared.module";
 import { ShellModule } from "../shell/shell.module";
+import { UserLoginComponent } from "./user/user-login/user-login.component";
 
 @NgModule({
   imports: [
@@ -14,10 +15,10 @@ import { ShellModule } from "../shell/shell.module";
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(UIRoutes),
-    ShellModule,
-    SharedModule
+    SharedModule,
+    ShellModule
   ],
-  declarations: [UiComponent],
+  declarations: [UiComponent, UserLoginComponent],
   exports: [RouterModule]
 })
-export class WariUIModule {}
+export class WariUIModule { }

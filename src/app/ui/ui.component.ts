@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'wari-ui',
@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UiComponent implements OnInit {
 
-  constructor() { }
+  constructor(private renderer: Renderer2) { 
+    this.renderer.removeClass(document.body.parentElement, 'login-pf');
+  }
 
   ngOnInit() {
   }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserLoginComponent } from './user-login/user-login.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -18,7 +17,7 @@ import { CoreModule } from '../../core/core.module';
     SharedModule,
     CoreModule
   ],
-  declarations: [UserLoginComponent, UserFormComponent, UserProfileComponent],
-  exports: [UserLoginComponent, UserFormComponent, UserProfileComponent]
+  declarations: [UserFormComponent, UserProfileComponent],
+  exports: [UserFormComponent, UserProfileComponent]
 })
 export class UserModule { }

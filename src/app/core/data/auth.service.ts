@@ -7,6 +7,7 @@ import { User } from './../model/user.model';
 import { Router } from '@angular/router';
 import { MessageService } from './message.service';
 import { switchMap, startWith, tap, filter } from 'rxjs/operators';
+import { NotifyService } from './notify.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private router: Router,
-    private notify: MessageService
+    private notify: NotifyService,
+    private message: MessageService,
   ) {
     this.user = this.afAuth.authState.pipe(
       switchMap(user => {
@@ -57,7 +59,7 @@ export class AuthService {
     return this.afAuth.auth
       .signInWithPopup(provider)
       .then(credential => {
-        this.notify.success('Welcome to Firestarter!!!');
+        this.message.success('Welcome to Firestarter!!!');
         return this.updateUserData(credential.user);
       })
       .catch(error => this.handleError(error));
@@ -69,7 +71,7 @@ export class AuthService {
     return this.afAuth.auth
       .signInAnonymously()
       .then(credential => {
-        this.notify.success('Welcome to Firestarter!!!');
+        this.message.success('Welcome to Firestarter!!!');
         return this.updateUserData(credential.user); // if using firestore
       })
       .catch(error => {
@@ -83,7 +85,7 @@ export class AuthService {
     return this.afAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(credential => {
-        this.notify.success('Welcome new user!');
+        this.message.success('Welcome new user!');
         return this.updateUserData(credential.user); // if using firestore
       })
       .catch(error => this.handleError(error));
@@ -93,10 +95,13 @@ export class AuthService {
     return this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
       .then(credential => {
-        this.notify.success('Welcome back!');
+        this.notify.update('Welcome back!', 'success');
         return this.updateUserData(credential.user);
       })
-      .catch(error => this.handleError(error));
+      .catch(error => {
+        this.notify.update('Email or password incorrects!', 'error');
+        this.handleError(error)
+      });
   }
 
   // Sends email allowing user to reset password
@@ -111,14 +116,14 @@ export class AuthService {
 
   signOut() {
     this.afAuth.auth.signOut().then(() => {
-      this.router.navigate(['/']);
+      this.router.navigate(['/wari/login']);
     });
   }
 
   // If error, console log and notify user
   private handleError(error: Error) {
     console.error(error);
-    this.notify.error(error.message);
+    this.message.error(error.message);
   }
 
   // Sets user data to firestore after succesful login
@@ -126,11 +131,10 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
     );
-
     const data: User = {
       uid: user.uid,
       email: user.email || null,
-      displayName: user.displayName || 'nameless user',
+      displayName: user.displayName || 'Anónimo',
       photoURL: user.photoURL || 'https://goo.gl/Fz9nrQ'
     };
     return userRef.set(data);

@@ -29,6 +29,7 @@ import { FirebaseService } from "./data/firebase.service";
 import { PreviewService } from "./data/preview.service";
 import { AuthService } from "./data/auth.service";
 import { AuthGuard } from "./guard/auth.guard";
+import { NotifyService } from "./data/notify.service";
 
 @NgModule({
   imports: [
@@ -68,6 +69,7 @@ import { AuthGuard } from "./guard/auth.guard";
     PreviewService,
     NotificationService,
     AuthService,
+    NotifyService,
     AuthGuard
   ],
   exports: [

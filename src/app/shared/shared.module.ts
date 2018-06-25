@@ -15,6 +15,8 @@ import { ReadFileComponent } from './components/read-file/read-file.component';
 import { FileSizePipe } from './pipe/file-size.pipe';
 import { DropZoneDirective } from './directives/drop-zone.directive';
 import { DropZoneFileComponent } from './components/drop-zone-file/drop-zone-file.component';
+import { ButtonLoginComponent } from './components/button-login/button-login.component';
+import { NotifyMessageComponent } from './components/notify-message/notify-message.component';
 
 @NgModule({
   imports: [
@@ -34,12 +36,15 @@ import { DropZoneFileComponent } from './components/drop-zone-file/drop-zone-fil
     ButtonCancelComponent,
     ButtonSaveComponent,
     ButtonDeleteComponent,
+    ButtonLoginComponent,
     LoadingComponent,
     ReadFileComponent,
     DropZoneFileComponent,
+    NotifyMessageComponent,
 
     TruncatePipe,
-    FileSizePipe
+    FileSizePipe,
+
   ],
   exports: [
     FormFieldValidationStateDirective,
@@ -53,9 +58,11 @@ import { DropZoneFileComponent } from './components/drop-zone-file/drop-zone-fil
     ButtonCancelComponent,
     ButtonSaveComponent,
     ButtonDeleteComponent,
+    ButtonLoginComponent,
     LoadingComponent,
     ReadFileComponent,
     DropZoneFileComponent,
+    NotifyMessageComponent,
 
     TruncatePipe,
     FileSizePipe
