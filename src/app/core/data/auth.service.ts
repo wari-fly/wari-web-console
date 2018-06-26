@@ -33,26 +33,24 @@ export class AuthService {
       }));
   }
 
-  ////// OAuth Methods /////
+  // login(email: string, password: string): Promise<firebase.auth.UserCredential> {
+  //   return this.afAuth.auth.signInWithEmailAndPassword(email, password);
+  // .then(value => {
+  //   console.log('Nice, it worked!');
+  // })
+  // .catch(err => {
+  //   console.log('Something went wrong:', err.message);
+  // });
+  // }
 
-  googleLogin() {
-    // const provider = new firebase.auth.GoogleAuthProvider();
-    // return this.oAuthLogin(provider);
-  }
-
-  githubLogin() {
-    // const provider = new firebase.auth.GithubAuthProvider();
-    // return this.oAuthLogin(provider);
-  }
-
-  facebookLogin() {
-    // const provider = new firebase.auth.FacebookAuthProvider();
-    // return this.oAuthLogin(provider);
-  }
-
-  twitterLogin() {
-    // const provider = new firebase.auth.TwitterAuthProvider();
-    // return this.oAuthLogin(provider);
+  signup(email: string, password: string): Promise<firebase.auth.UserCredential> {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+    // .then(value => {
+    //   console.log('Success!', value);
+    // })
+    // .catch(err => {
+    //   console.log('Something went wrong:', err.message);
+    // });
   }
 
   private oAuthLogin(provider: any) {
@@ -67,31 +65,21 @@ export class AuthService {
 
   //// Anonymous Auth ////
 
-  anonymousLogin() {
-    return this.afAuth.auth
-      .signInAnonymously()
-      .then(credential => {
-        this.message.success('Welcome to Firestarter!!!');
-        return this.updateUserData(credential.user); // if using firestore
-      })
-      .catch(error => {
-        this.handleError(error);
-      });
-  }
+  // anonymousLogin() {
+  //   return this.afAuth.auth
+  //     .signInAnonymously()
+  //     .then(credential => {
+  //       this.message.success('Welcome to Firestarter!!!');
+  //       return this.updateUserData(credential.user); // if using firestore
+  //     })
+  //     .catch(error => {
+  //       this.handleError(error);
+  //     });
+  // }
 
   //// Email/Password Auth ////
 
-  emailSignUp(email: string, password: string) {
-    return this.afAuth.auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(credential => {
-        this.message.success('Welcome new user!');
-        return this.updateUserData(credential.user); // if using firestore
-      })
-      .catch(error => this.handleError(error));
-  }
-
-  emailLogin(email: string, password: string) {
+  login(email: string, password: string) {
     return this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
       .then(credential => {
@@ -103,6 +91,8 @@ export class AuthService {
         this.handleError(error)
       });
   }
+
+
 
   // Sends email allowing user to reset password
   resetPassword(email: string) {
@@ -129,13 +119,11 @@ export class AuthService {
   // Sets user data to firestore after succesful login
   private updateUserData(user: User) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
-      `users/${user.uid}`
+      `Users/${user.uid}`
     );
     const data: User = {
       uid: user.uid,
-      email: user.email || null,
-      displayName: user.displayName || 'Anónimo',
-      photoURL: user.photoURL || 'https://goo.gl/Fz9nrQ'
+      email: user.email || null    
     };
     return userRef.set(data);
   }

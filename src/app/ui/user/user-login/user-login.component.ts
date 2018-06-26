@@ -74,7 +74,7 @@ export class UserLoginComponent implements OnInit {
 
   async login() {
     this.working = true;
-    await this.auth.emailLogin(this.form.value['email'], this.form.value['password']);
+    await this.auth.login(this.form.value['email'], this.form.value['password']);
     this.working = false;
     return await this.afterSignIn();
   }

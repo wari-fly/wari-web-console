@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/data/auth.service';
-
-type UserFields = 'email' | 'password';
-type FormErrors = { [u in UserFields]: string };
+import { MessageService } from '../../../core/data/message.service';
+import { User } from './../../../core/model/user.model';
+import { FirebaseService } from '../../../core/data/firebase.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'wari-user-form',
@@ -12,79 +13,58 @@ type FormErrors = { [u in UserFields]: string };
 })
 export class UserFormComponent implements OnInit {
 
-  userForm: FormGroup;
-  newUser = true; // to toggle login or signup form
-  passReset = false; // set to true when password reset is triggered
-  formErrors: FormErrors = {
-    'email': '',
-    'password': '',
-  };
-  validationMessages = {
-    'email': {
-      'required': 'Email is required.',
-      'email': 'Email must be a valid email',
-    },
-    'password': {
-      'required': 'Password is required.',
-      'pattern': 'Password must be include at one letter and one number.',
-      'minlength': 'Password must be at least 4 characters long.',
-      'maxlength': 'Password cannot be more than 40 characters long.',
-    },
-  };
+  form: FormGroup;
+  file: File;
+  profile: any = "/assets/img/your-logo-here.png";
+  user: User;
+  working = false;
 
-  constructor(private fb: FormBuilder, private auth: AuthService) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private message: MessageService,
+    private service: FirebaseService
+  ) { }
 
   ngOnInit() {
     this.buildForm();
   }
 
-  toggleForm() {
-    this.newUser = !this.newUser;
-  }
-
-  signup() {
-    this.auth.emailSignUp(this.userForm.value['email'], this.userForm.value['password']);
-  }
-
-  login() {
-    this.auth.emailLogin(this.userForm.value['email'], this.userForm.value['password']);
-  }
-
-  resetPassword() {
-    // this.auth.resetPassword(this.userForm.value['email'])
-    //   .then(() => this.passReset = true);
-  }
-
   buildForm() {
-    this.userForm = this.fb.group({
-      'email': ['', [Validators.required, Validators.email]],
-      'password': ['', [Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'), Validators.minLength(6), Validators.maxLength(25)]],
+    this.form = this.fb.group({
+      firstName: [null, Validators.compose([Validators.required, Validators.maxLength(200)])],
+      lastName: [null, Validators.compose([Validators.required, Validators.maxLength(200)])],
+      displayName: [null, Validators.compose([Validators.required, Validators.maxLength(200)])],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.compose([Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'), Validators.minLength(6), Validators.maxLength(25)])],
     });
-
-    this.userForm.valueChanges.subscribe((data) => this.onValueChanged(data));
-    this.onValueChanged(); // reset validation messages
   }
 
-  // Updates validation state on form changes.
-  onValueChanged(data?: any) {
-    if (!this.userForm) { return; }
-    const form = this.userForm;
-    for (const field in this.formErrors) {
-      if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'email' || field === 'password')) {
-        // clear previous error message (if any)
-        this.formErrors[field] = '';
-        const control = form.get(field);
-        if (control && control.dirty && !control.valid) {
-          const messages = this.validationMessages[field];
-          if (control.errors) {
-            for (const key in control.errors) {
-              if (Object.prototype.hasOwnProperty.call(control.errors, key)) {
-                this.formErrors[field] += `${(messages as { [key: string]: string })[key]} `;
-              }
-            }
-          }
-        }
-      }
+  onFileChange($event) {
+    let regex = new RegExp("(.*?)\.(jpg|png|jpeg)$");
+    let correctfile = regex.test($event.fileName);
+    if (!correctfile) {
+      this.message.warning('Warning! The file extension is not as required.');
+      return;
     }
+    this.file = $event.data;
+    this.profile=$event.data;
+  }
+
+  save(form) {
+    this.auth.signup(this.form.value['email'], this.form.value['password'])
+      .then(value => {
+        const user: User = Object.assign(this.user || {}, form.value);
+        user.uid = value.user.uid;
+        this.service.create(user).then(data => {
+          this.message.success('Success! Your changes have been saved!.');
+          this.router.navigate(['../'], { relativeTo: this.route });
+        });
+      })
+      .catch(err => {
+        this.message.error(err.message);
+      });
   }
 }

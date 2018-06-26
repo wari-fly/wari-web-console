@@ -31,7 +31,7 @@ export class MaintenanceListComponent implements OnInit {
   }
   loadData() {
     this.dataservice
-      .getFiles()
+      .getAll()
       .snapshotChanges()
       .subscribe(result => {
         this.sites = result.map(c => ({ key: c.payload.key, ...c.payload.val() }));

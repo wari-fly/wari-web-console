@@ -16,6 +16,7 @@ export class MaintenanceCreateComponent implements OnInit {
   documentos: Array<File> = new Array<File>();
   form: FormGroup;
   progress: { percentage: number } = { percentage: 0 };
+  working = false;
 
   constructor(
     private router: Router,
@@ -84,7 +85,7 @@ export class MaintenanceCreateComponent implements OnInit {
     const model: SitioModel = form.value;
     model.documentos = this.documentos;
 
-    this.dataservice.save(model, this.progress).then(() => {
+    this.dataservice.upload(model, this.progress).then(() => {
       this.files = null;
       this.data = [];
       this.message.warning('Success! The archeological site has been created..');

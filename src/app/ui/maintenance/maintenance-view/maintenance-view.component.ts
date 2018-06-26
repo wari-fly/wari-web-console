@@ -29,7 +29,7 @@ export class MaintenanceViewComponent implements OnInit {
 
   loadData() {
     this.dataservice
-      .get(this.id)
+      .getByKey(this.id)
       .snapshotChanges()
       .subscribe(result => {
         this.site = result.map(c => ({ key: c.payload.key, ...c.payload.val() }))[0];

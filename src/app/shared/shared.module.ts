@@ -17,6 +17,7 @@ import { DropZoneDirective } from './directives/drop-zone.directive';
 import { DropZoneFileComponent } from './components/drop-zone-file/drop-zone-file.component';
 import { ButtonLoginComponent } from './components/button-login/button-login.component';
 import { NotifyMessageComponent } from './components/notify-message/notify-message.component';
+import { ReadMultiFileComponent } from './components/read-multi-file/read-multi-file.component';
 
 @NgModule({
   imports: [
@@ -39,11 +40,12 @@ import { NotifyMessageComponent } from './components/notify-message/notify-messa
     ButtonLoginComponent,
     LoadingComponent,
     ReadFileComponent,
+    ReadMultiFileComponent,
     DropZoneFileComponent,
     NotifyMessageComponent,
 
     TruncatePipe,
-    FileSizePipe,
+    FileSizePipe
 
   ],
   exports: [
@@ -61,6 +63,7 @@ import { NotifyMessageComponent } from './components/notify-message/notify-messa
     ButtonLoginComponent,
     LoadingComponent,
     ReadFileComponent,
+    ReadMultiFileComponent,
     DropZoneFileComponent,
     NotifyMessageComponent,
 

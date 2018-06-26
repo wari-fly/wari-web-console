@@ -1,54 +1,96 @@
-<form [formGroup]="userForm" *ngIf="newUser" (ngSubmit)="signup()">
+<div class="padding-1">
+    <div class="row">
+        <div class="col-sm-12">
+            <h4>Creacion de usuarios</h4>
+            <hr/>
+        </div>
+    </div>
+    <div class="cards-pf pfng-isc-ex-container">
+        <div class="container-fluid pfng-fluid-width-container">
+            <div class="col-sm-6">
+                <form [formGroup]="form" (ngSubmit)="save(form)">
+                    <wari-form-fields-status [wariForm]="form"></wari-form-fields-status>
 
-  <h3>New User Signup</h3>
-  <p class="button is-small" (click)="toggleForm()">Already Registered?</p>
-  <hr>
-
-  <label for="email">Email</label>
-  <input type="email" class="input" formControlName="email" name="email" required autocomplete="new-password">
-
-  <div *ngIf="formErrors.email" class="notification is-danger">
-      {{ formErrors.email }}
-  </div>
-
-  <label for="password">Password</label>
-  <input type="password" class="input" formControlName="password" name="password" required>
-
-  <div *ngIf="formErrors.password" class="notification is-danger">
-      {{ formErrors.password }}
-  </div>
-
-  <div *ngIf="userForm.valid" class="notification is-success">Form is valid</div>
-  <button type="submit" class="button" [disabled]="!userForm.valid">Submit</button>
-
-</form>
-
-
-<form [formGroup]="userForm" *ngIf="!newUser" (ngSubmit)="login()">
-
-  <h3>Existing User Login</h3>
-  <p class="btn button is-small" (click)="toggleForm()">New User?</p>
-  <hr>
-
-  <label for="email">Email</label>
-  <input type="email" id="email" name="email2" class="input" formControlName="email" required autocomplete="new-password">
-
-  <div *ngIf="formErrors.email" class="help is-danger">
-      {{ formErrors.email }}
-  </div>
-
-  <label for="password">Password</label>
-  <input type="password" id="password" name="password2" class="input" formControlName="password" required autocomplete="new-password">
-
-  <div *ngIf="formErrors.password" class="help is-danger">
-      {{ formErrors.password }}
-  </div>
-
-  <button type="submit" class="button" [disabled]="!userForm.valid">Submit</button>
-
-  <span *ngIf="userForm.valid" class="help is-success">Form Looks Valid</span>
-
-  <a *ngIf="!passReset && userForm.controls.email.valid" class="help is-info" (click)="resetPassword()">Reset Password for {{userForm.value.email}}?</a>
-  <p *ngIf="passReset" class="help is-info">Reset requested. Check your email instructions.</p>
-
-</form>
+                    <div class="row form-group" [wariFormFieldValidationState]="form.get('firstName')">
+                        <label class="col-md-2 control-label" [wariFormRequiredLabel]="form.get('firstName')">Nombres
+                            <i class="fa fa-question-circle text-muted" tooltip="firstName" placement="top"></i>
+                        </label>
+                        <div class="col-md-10">
+                            <input formControlName="firstName" type="text" class="form-control">
+                            <wari-form-field-validation-messages [wariFormControl]="form.get('firstName')">
+                            </wari-form-field-validation-messages>
+                        </div>
+                    </div>
+                    <div class="row form-group" [wariFormFieldValidationState]="form.get('lastName')">
+                        <label class="col-md-2 control-label" [wariFormRequiredLabel]="form.get('lastName')">Apellidos
+                            <i class="fa fa-question-circle text-muted" tooltip="Apellidos" placement="top"></i>
+                        </label>
+                        <div class="col-md-10">
+                            <input formControlName="lastName" type="text" class="form-control">
+                            <wari-form-field-validation-messages [wariFormControl]="form.get('lastName')">
+                            </wari-form-field-validation-messages>
+                        </div>
+                    </div>
+                    <div class="row form-group" [wariFormFieldValidationState]="form.get('displayName')">
+                        <label class="col-md-2 control-label" [wariFormRequiredLabel]="form.get('displayName')">Alias
+                            <i class="fa fa-question-circle text-muted" tooltip="Alias" placement="top"></i>
+                        </label>
+                        <div class="col-md-10">
+                            <input formControlName="displayName" type="text" class="form-control">
+                            <wari-form-field-validation-messages [wariFormControl]="form.get('displayName')">
+                            </wari-form-field-validation-messages>
+                        </div>
+                    </div>
+                    <div class="row form-group" [wariFormFieldValidationState]="form.get('email')">
+                        <label class="col-md-2 control-label" [wariFormRequiredLabel]="form.get('email')">Email
+                            <i class="fa fa-question-circle text-muted" tooltip="Alias" placement="top"></i>
+                        </label>
+                        <div class="col-md-10">
+                            <input formControlName="email" type="text" class="form-control">
+                            <wari-form-field-validation-messages [wariFormControl]="form.get('email')">
+                            </wari-form-field-validation-messages>
+                        </div>
+                    </div>
+                    <div class="row form-group" [wariFormFieldValidationState]="form.get('password')">
+                        <label class="col-md-2 control-label" [wariFormRequiredLabel]="form.get('password')">Password
+                            <i class="fa fa-question-circle text-muted" tooltip="Alias" placement="top"></i>
+                        </label>
+                        <div class="col-md-10">
+                            <input formControlName="password" type="text" class="form-control">
+                            <wari-form-field-validation-messages [wariFormControl]="form.get('password')">
+                            </wari-form-field-validation-messages>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group" [wariFormFieldValidationState]="form.get('displayName')">
+                        <label class="col-md-2 control-label" [wariFormRequiredLabel]="form.get('displayName')">Confirmar Password
+                            <i class="fa fa-question-circle text-muted" tooltip="Alias" placement="top"></i>
+                        </label>
+                        <div class="col-md-3">
+                            <input formControlName="displayName" type="text" class="form-control">
+                            <wari-form-field-validation-messages [wariFormControl]="form.get('displayName')">
+                            </wari-form-field-validation-messages>
+                        </div>
+                    </div> -->
+                    <br>
+                    <wari-button-save [wariForm]="form" [working]="working"></wari-button-save>
+                    <wari-button-cancel (wariOnCancel)="cancel()"></wari-button-cancel>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <img class="thumbnail" [src]="profile" *ngIf="profile">
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Imagen Perfil
+                                <i class="fa fa-question-circle text-muted" tooltip="Imagen del Perfil" placement="top"></i>
+                            </label>
+                            <wari-read-file [showFileName]="false" (complete)="onFileChange($event)"></wari-read-file>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

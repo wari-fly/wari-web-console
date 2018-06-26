@@ -4,16 +4,18 @@ import * as firebase from "firebase";
 import { SitioModel } from "../model/sitio.model";
 import { MessageService } from "./message.service";
 import { v4 as uuid } from 'uuid';
+import { User } from './../model/user.model';
 
 @Injectable({
   providedIn: "root"
 })
 export class FirebaseService {
   private basePath = "/wari";
+  private userPath = "/profile";
 
   constructor(private message: MessageService, private db: AngularFireDatabase) { }
 
-  async save(model: SitioModel, progress: { percentage: number }) {
+  async upload(model: SitioModel, progress: { percentage: number }) {
     const storageRef = firebase.storage().ref();
     const documentos: any[] = [];
     let size = 0;
@@ -36,7 +38,7 @@ export class FirebaseService {
             model.files = documentos;
             model.documentos = null;
             model.imagen = url;
-            this.db.list(`${this.basePath}/`).push(model);
+            this.db.list(`${this.basePath}/` + uuid()).push(model);
           }
         });
     });
@@ -44,19 +46,41 @@ export class FirebaseService {
     //return this.get(model.key);
   }
 
-  saveFileData(filemodel: SitioModel) {
-    this.db.list(`${this.basePath}/`).push(filemodel);
+  async create(user: User) {
+    if (!user.photo) {
+      return await this.db.object('Users/' + user.uid).set(user);
+    }
+    const storageRef = firebase.storage().ref();
+    const uploadTask = storageRef.child(`${this.userPath}/${user.photo.name}`).put(user.photo);
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      snapshot => {
+        // const snap = snapshot as firebase.storage.UploadTaskSnapshot;
+        // progress.percentage = Math.round((snap.bytesTransferred / (snap.totalBytes)) * 100);
+      },
+      error => {
+        this.message.error("Error al cargar algunos archivos");
+      },
+      async () => {
+        const url = await uploadTask.snapshot.ref.getDownloadURL();
+        user.photo = null;
+        user.imageUrl = url;
+        return await this.db.object('Users/' + user.uid).set(user);
+      });
   }
 
-  getFilesToLimit(numberItems): AngularFireList<any> {
+  getById(uid: any) {
+    this.db.list('Users/' + uid, ref => ref.orderByChild("uid").equalTo(uid));
+  }
+
+  getAllToLimit(numberItems): AngularFireList<any> {
     return this.db.list(this.basePath, ref => ref.limitToLast(numberItems));
   }
 
-  getFiles(): AngularFireList<any> {
+  getAll(): AngularFireList<any> {
     return this.db.list(this.basePath);
   }
 
-  get(key: string): AngularFireList<any> {
+  getByKey(key: string): AngularFireList<any> {
     return this.db.list(this.basePath, ref => ref.orderByChild("key").equalTo(key));
   }
 

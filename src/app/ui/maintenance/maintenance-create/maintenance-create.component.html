@@ -34,7 +34,7 @@
                 <label class="control-label">Imagenes
                   <i class="fa fa-question-circle text-muted" tooltip="Imagenes del sitio arquilogico" placement="top"></i>
                 </label>
-                <wari-read-file [showFileName]="false" [multiple]="true" (complete)="onFileChange($event)"></wari-read-file>
+                <wari-read-multi-file [showFileName]="false" (complete)="onFileChange($event)"></wari-read-multi-file>
               </div>
             </div>
           </div>
@@ -51,7 +51,7 @@
             </div>
             <div class="col-md-4">
               <div class="form-group" [wariFormFieldValidationState]="form.get('ubicacion')">
-                <label class="control-label" [wariFormRequiredLabel]="form.get('ubicacion')">Ubicación geográfica 
+                <label class="control-label" [wariFormRequiredLabel]="form.get('ubicacion')">Ubicación geográfica
                   <i class="fa fa-question-circle text-muted" tooltip="relacion con los pueblos y ciudades cercanas" placement="top"></i>
                 </label>
                 <input formControlName="ubicacion" type="text" class="form-control">
@@ -62,7 +62,8 @@
             <div class="col-md-4">
               <div class="form-group" [wariFormFieldValidationState]="form.get('periodo')">
                 <label class="control-label" [wariFormRequiredLabel]="form.get('periodo')">Periodo cronológico
-                  <i class="fa fa-question-circle text-muted" tooltip="posicion cronologica del sitio, determinada a traves del analisis de los materiales culturales" placement="top"></i>
+                  <i class="fa fa-question-circle text-muted" tooltip="posicion cronologica del sitio, determinada a traves del analisis de los materiales culturales"
+                    placement="top"></i>
                 </label>
                 <input formControlName="periodo" type="text" class="form-control">
                 <wari-form-field-validation-messages [wariFormControl]="form.get('periodo')">
@@ -155,7 +156,7 @@
                           <span class="fa fa-plus"></span>
                         </button>
                       </div>
-                    </td>                    
+                    </td>
                     <td colspan="2">
                     </td>
                     <td class="table-view-pf-actions">
@@ -172,7 +173,8 @@
             <div class="col-md-6">
               <div class="form-group" [wariFormFieldValidationState]="form.get('descripcion')">
                 <label class="control-label" [wariFormRequiredLabel]="form.get('descripcion')">Descripcion
-                  <i class="fa fa-question-circle text-muted" ngbTooltip="segun los componentes arquitectónicos, los materiales arqueológicos encontrados en superficie" placement="right"></i>
+                  <i class="fa fa-question-circle text-muted" ngbTooltip="segun los componentes arquitectónicos, los materiales arqueológicos encontrados en superficie"
+                    placement="right"></i>
                 </label>
                 <textarea formControlName="descripcion" rows="5" class="form-control" placeholder="componentes arquitectónicos, los materiales arqueológicos encontrados en superficie, la forma y la superposición"></textarea>
                 <wari-form-field-validation-messages [wariFormControl]="form.get('descripcion')">

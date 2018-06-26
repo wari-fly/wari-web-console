@@ -11,35 +11,49 @@ export class ReadFileComponent implements OnInit {
   showFileName = false;
 
   @Input()
-  multiple = false;
+  asText = false;
+
+  @Input()
+  asArrayBuffer = false;
+
+  @Input()
+  asDataUrl = true; 
+  
+  @Input()
+  asBinaryString = false;
 
   @Output()
   complete: EventEmitter<any> = new EventEmitter<any>();
 
-  files = new Array();
+  file: any = {
+    fileName: undefined,
+    data: undefined
+  };
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  changeListener(event: any) {
+  changeListener($event: any) {
+    const inputValue = $event.target;
+    const files: File = inputValue.files;
     const self = this;
-    if (event.target.files && event.target.files.length > 0) {
-      const $files = event.target.files;
-      for (var i = 0; i < $files.length; i++) {
-        const file: File = $files[i];
-        if (!file.type.match('image.*')) continue;
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          self.files.push({ url: reader.result, name: file.name });
-        };
-        reader.readAsDataURL(file);
-      }
-      self.complete.next({ data: self.files, files: event.target.files });
-    } else {
-      self.complete.next({ data: [], files: [] });
-    }
+    const reader: FileReader = new FileReader();
+
+    this.file.fileName = files[0].name;
+    reader.onloadend = function (e) {
+      self.file.data = reader.result;
+      self.complete.next(self.file);
+    };
+    if (this.asText)
+      reader.readAsText(files[0]);
+    if (this.asDataUrl)
+      reader.readAsDataURL(files[0]);
+    if (this.asArrayBuffer)
+      reader.readAsArrayBuffer(files[0]);
+      if (this.asBinaryString)
+      reader.readAsBinaryString(files[0]);
   }
 
 }
