@@ -23,34 +23,9 @@
             <h3>Coordenadas</h3>
           </legend>
         </fieldset>
-        <pfng-list [config]="listConfig" [items]="coordenadas" [itemHeadingTemplate]="itemHeadingTemplate" [itemTemplate]="itemTemplate">
-          <ng-template #itemHeadingTemplate let-item="item">
-            <div class="list-pf-left">
-              <div class="icon-placeholder"></div>
-            </div>
-            <div class="list-pf-content-wrapper">
-              <div class="list-pf-main-content">
-                <div class="list-pf-title"><i class="pficon pficon-info" tooltip="logitud"></i> COORDENADA</div>
-                <div class="list-pf-description text-overflow-pf text-center"><i class="pficon pficon-info" tooltip="logitud"></i> LATITUD</div>
-                <div class="list-pf-description text-overflow-pf text-center"><i class="pficon pficon-info " tooltip="logitud"></i> LONGITUD</div>
-              </div>            
-            </div>
-          </ng-template>
-          <ng-template #itemTemplate let-item="item" let-index="index">
-            <div class="list-pf-left">
-              <span class="fa fa-map-marker list-pf-icon list-pf-icon-bordered list-pf-icon-small" tooltip="coordenadas" placement="top"></span>
-            </div>
-            <div class="list-pf-content-wrapper">
-              <div class="list-pf-main-content">
-                <div class="list-pf-title">
-                  <span >{{item.latitud}},{{item.logitud}}</span>
-                </div>
-                <div class="list-pf-description list-group-item-text text-center">{{item.latitud}}</div>
-                <div class="list-pf-description list-group-item-text text-center">{{item.logitud}}</div>
-              </div>
-            </div>
-          </ng-template>
-        </pfng-list>
+        <pfng-table [columns]="columns" [config]="tableConfig" [rows]="rows" (onPageNumberChange)="handlePage($event)" (onPageSizeChange)="handlePage($event)">
+          </pfng-table>
+
       </div>
       <div class="col-sm-6">
         <fieldset>

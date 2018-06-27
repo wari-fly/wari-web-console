@@ -1,19 +1,13 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import {
-  InfoStatusCardModule,
   EmptyStateModule,
   NavigationModule,
   ToastNotificationListModule,
   TableModule,
   CardModule,
   NotificationService,
-  NotificationModule,
-  WizardModule,
-  PaginationModule,
-  ActionModule,
-  ListModule,
-  ToolbarModule
+  NotificationModule  
 } from "patternfly-ng";
 
 import { McBreadcrumbsModule } from "ngx-breadcrumbs";
@@ -39,14 +33,7 @@ import { NotifyService } from "./data/notify.service";
     ToastNotificationListModule,
     NotificationModule,
     EmptyStateModule,
-    TableModule,
-    InfoStatusCardModule,
-    WizardModule,
-    PaginationModule,
-    ActionModule,
-    ListModule,
-    ToolbarModule,
-
+    TableModule,   
     CardModule,
     BsDropdownModule.forRoot(),
     AngularFireModule.initializeApp({
@@ -78,13 +65,7 @@ import { NotifyService } from "./data/notify.service";
     ToastNotificationListModule,
     NotificationModule,
     EmptyStateModule,
-    TableModule,
-    WizardModule,
-    PaginationModule,
-    ActionModule,
-    ListModule,
-    ToolbarModule,
-    InfoStatusCardModule,
+    TableModule,   
     BsDropdownModule,
     CardModule,
     AngularFireModule,
