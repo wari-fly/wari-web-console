@@ -88,7 +88,7 @@ export class MaintenanceCreateComponent implements OnInit {
     this.dataservice.upload(model, this.progress).then(() => {
       this.files = null;
       this.data = [];
-      this.message.warning('Success! The archeological site has been created..');
+      this.message.success('Success! The archeological site has been created..');
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

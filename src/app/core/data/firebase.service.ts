@@ -38,7 +38,7 @@ export class FirebaseService {
             model.files = documentos;
             model.documentos = null;
             model.imagen = url;
-            this.db.list(`${this.basePath}/` + uuid()).push(model);
+            this.db.object(`${this.basePath}/` + uuid()).set(model);
           }
         });
     });
@@ -48,7 +48,7 @@ export class FirebaseService {
 
   async create(user: User) {
     if (!user.photo) {
-      return await this.db.object('Users/' + user.uid).set(user);
+      return await this.db.object(this.userPath+'/' + user.uid).set(user);
     }
     const storageRef = firebase.storage().ref();
     const uploadTask = storageRef.child(`${this.userPath}/${user.photo.name}`).put(user.photo);
@@ -64,12 +64,12 @@ export class FirebaseService {
         const url = await uploadTask.snapshot.ref.getDownloadURL();
         user.photo = null;
         user.imageUrl = url;
-        return await this.db.object('Users/' + user.uid).set(user);
+        return await this.db.object(this.userPath+'/' + user.uid).set(user);
       });
   }
 
   getById(uid: any) {
-    this.db.list('Users/' + uid, ref => ref.orderByChild("uid").equalTo(uid));
+    this.db.list(this.userPath+'/' + uid, ref => ref.orderByChild("uid").equalTo(uid));
   }
 
   getAllToLimit(numberItems): AngularFireList<any> {
@@ -78,6 +78,9 @@ export class FirebaseService {
 
   getAll(): AngularFireList<any> {
     return this.db.list(this.basePath);
+  }
+  getAllUsers(): AngularFireList<any> {
+    return this.db.list(this.userPath);
   }
 
   getByKey(key: string): AngularFireList<any> {

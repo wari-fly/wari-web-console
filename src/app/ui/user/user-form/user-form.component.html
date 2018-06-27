@@ -56,7 +56,7 @@
                             <i class="fa fa-question-circle text-muted" tooltip="Alias" placement="top"></i>
                         </label>
                         <div class="col-md-10">
-                            <input formControlName="password" type="text" class="form-control">
+                            <input formControlName="password" type="password" class="form-control">
                             <wari-form-field-validation-messages [wariFormControl]="form.get('password')">
                             </wari-form-field-validation-messages>
                         </div>
@@ -78,14 +78,12 @@
             </div>
             <div class="col-md-6">
                 <div class="row">
-                    <img class="thumbnail" [src]="profile" *ngIf="profile">
+                    <img class="thumbnail" [src]="file" *ngIf="file">
+                    <img class="thumbnail" src="assets/img/profile.jpg" *ngIf="!file">
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="control-label">Imagen Perfil
-                                <i class="fa fa-question-circle text-muted" tooltip="Imagen del Perfil" placement="top"></i>
-                            </label>
+                        <div class="form-group">                      
                             <wari-read-file [showFileName]="false" (complete)="onFileChange($event)"></wari-read-file>
                         </div>
                     </div>

@@ -16,7 +16,7 @@ export class UserLoginComponent implements OnInit {
   form: FormGroup;
   working = false;
 
-  formErrors: FormErrors = { 'email': '', 'password': '', };
+  formErrors: FormErrors = { 'email': '', 'password': '' };
   validationMessages = {
     'email': { 'required': 'Email is required.', 'email': 'Email must be a valid email' },
     'password': { 'required': 'Password is required.', 'pattern': 'Password must be include at one letter and one number.', 'minlength': 'Password must be at least 4 characters long.', 'maxlength': 'Password cannot be more than 40 characters long.' },
@@ -43,7 +43,7 @@ export class UserLoginComponent implements OnInit {
   buildForm() {
     this.form = this.formBuilder.group({
       email: [null, Validators.compose([Validators.required, Validators.email])],
-      password: [null, Validators.compose([Validators.required, Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'), Validators.minLength(6), Validators.maxLength(25)])],
+      password: [null, Validators.compose([Validators.required, Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'), Validators.minLength(6), Validators.maxLength(25)])]
     });
     this.form.valueChanges.subscribe((data) => this.onValueChanged(data));
     this.onValueChanged(); // reset validation messages
@@ -72,15 +72,15 @@ export class UserLoginComponent implements OnInit {
     }
   }
 
-  async login() {
+  login(form) {
     this.working = true;
-    await this.auth.login(this.form.value['email'], this.form.value['password']);
+    this.auth.login(this.form.value['email'], this.form.value['password']);
     this.working = false;
-    return await this.afterSignIn();
+    return this.afterSignIn();
   }
 
 
-  private afterSignIn() {
+   afterSignIn() {
     return this.router.navigate(['/wari']);
   }
 }

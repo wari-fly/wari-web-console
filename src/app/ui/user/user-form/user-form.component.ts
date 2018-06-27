@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/data/auth.service';
 import { MessageService } from '../../../core/data/message.service';
-import { User } from './../../../core/model/user.model';
 import { FirebaseService } from '../../../core/data/firebase.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -15,8 +14,7 @@ export class UserFormComponent implements OnInit {
 
   form: FormGroup;
   file: File;
-  profile: any = "/assets/img/your-logo-here.png";
-  user: User;
+  user: any;
   working = false;
 
   constructor(
@@ -50,15 +48,14 @@ export class UserFormComponent implements OnInit {
       return;
     }
     this.file = $event.data;
-    this.profile=$event.data;
   }
 
   save(form) {
     this.auth.signup(this.form.value['email'], this.form.value['password'])
       .then(value => {
-        const user: User = Object.assign(this.user || {}, form.value);
+        const user = Object.assign(this.user || {}, form.value);
         user.uid = value.user.uid;
-        this.service.create(user).then(data => {
+        this.service.create(user).then(() => {
           this.message.success('Success! Your changes have been saved!.');
           this.router.navigate(['../'], { relativeTo: this.route });
         });
@@ -66,5 +63,8 @@ export class UserFormComponent implements OnInit {
       .catch(err => {
         this.message.error(err.message);
       });
+  }
+  cancel() {
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 }

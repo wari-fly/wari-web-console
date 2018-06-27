@@ -7,6 +7,7 @@ import { UserRoutes } from './user.routes';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 import { CoreModule } from '../../core/core.module';
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { CoreModule } from '../../core/core.module';
     SharedModule,
     CoreModule
   ],
-  declarations: [UserFormComponent, UserProfileComponent],
-  exports: [UserFormComponent, UserProfileComponent]
+  declarations: [UserFormComponent, UserProfileComponent, UserListComponent],
+  exports: [UserFormComponent, UserProfileComponent, UserListComponent]
 })
 export class UserModule { }
