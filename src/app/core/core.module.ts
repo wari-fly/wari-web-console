@@ -3,7 +3,6 @@ import { CommonModule } from "@angular/common";
 import {
   EmptyStateModule,
   NavigationModule,
-  ToastNotificationListModule,
   TableModule,
   CardModule,
   NotificationService,
@@ -30,7 +29,6 @@ import { NotifyService } from "./data/notify.service";
     CommonModule,
     McBreadcrumbsModule.forRoot(),
     NavigationModule,
-    ToastNotificationListModule,
     NotificationModule,
     EmptyStateModule,
     TableModule,   
@@ -62,7 +60,6 @@ import { NotifyService } from "./data/notify.service";
   exports: [
     McBreadcrumbsModule,
     NavigationModule,
-    ToastNotificationListModule,
     NotificationModule,
     EmptyStateModule,
     TableModule,   

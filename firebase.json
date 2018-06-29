@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/wari-web-console",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
