@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthService } from '../../../core/data/auth.service';
 import { MessageService } from '../../../core/data/message.service';
 import { FirebaseService } from '../../../core/data/firebase.service';
@@ -36,8 +36,18 @@ export class UserFormComponent implements OnInit {
       lastName: [null, Validators.compose([Validators.required, Validators.maxLength(200)])],
       displayName: [null, Validators.compose([Validators.required, Validators.maxLength(200)])],
       email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.compose([Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'), Validators.minLength(6), Validators.maxLength(25)])],
+      password: ['', Validators.compose([Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'), Validators.required, Validators.minLength(6), Validators.maxLength(25)])],
+      confirmPassword: ['', Validators.compose([Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'), Validators.required, Validators.minLength(6), Validators.maxLength(25), this.isEqualPassword.bind(this)])],
     });
+  }
+
+  isEqualPassword(control: FormControl): { [s: string]: boolean } {
+    if (!this.form) {
+      return { passwordsNotMatch: true };
+    }
+    if (control.value !== this.form.controls['password'].value) {
+      return { passwordsNotMatch: true };
+    }
   }
 
   onFileChange($event) {

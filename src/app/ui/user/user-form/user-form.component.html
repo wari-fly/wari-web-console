@@ -12,65 +12,65 @@
                     <wari-form-fields-status [wariForm]="form"></wari-form-fields-status>
 
                     <div class="row form-group" [wariFormFieldValidationState]="form.get('firstName')">
-                        <label class="col-md-2 control-label" [wariFormRequiredLabel]="form.get('firstName')">Nombres
+                        <label class="col-md-3 control-label" [wariFormRequiredLabel]="form.get('firstName')">Nombres
                             <i class="fa fa-question-circle text-muted" tooltip="firstName" placement="top"></i>
                         </label>
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <input formControlName="firstName" type="text" class="form-control">
                             <wari-form-field-validation-messages [wariFormControl]="form.get('firstName')">
                             </wari-form-field-validation-messages>
                         </div>
                     </div>
                     <div class="row form-group" [wariFormFieldValidationState]="form.get('lastName')">
-                        <label class="col-md-2 control-label" [wariFormRequiredLabel]="form.get('lastName')">Apellidos
+                        <label class="col-md-3 control-label" [wariFormRequiredLabel]="form.get('lastName')">Apellidos
                             <i class="fa fa-question-circle text-muted" tooltip="Apellidos" placement="top"></i>
                         </label>
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <input formControlName="lastName" type="text" class="form-control">
                             <wari-form-field-validation-messages [wariFormControl]="form.get('lastName')">
                             </wari-form-field-validation-messages>
                         </div>
                     </div>
                     <div class="row form-group" [wariFormFieldValidationState]="form.get('displayName')">
-                        <label class="col-md-2 control-label" [wariFormRequiredLabel]="form.get('displayName')">Alias
+                        <label class="col-md-3 control-label" [wariFormRequiredLabel]="form.get('displayName')">Alias
                             <i class="fa fa-question-circle text-muted" tooltip="Alias" placement="top"></i>
                         </label>
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <input formControlName="displayName" type="text" class="form-control">
                             <wari-form-field-validation-messages [wariFormControl]="form.get('displayName')">
                             </wari-form-field-validation-messages>
                         </div>
                     </div>
                     <div class="row form-group" [wariFormFieldValidationState]="form.get('email')">
-                        <label class="col-md-2 control-label" [wariFormRequiredLabel]="form.get('email')">Email
+                        <label class="col-md-3 control-label" [wariFormRequiredLabel]="form.get('email')">Email
                             <i class="fa fa-question-circle text-muted" tooltip="Alias" placement="top"></i>
                         </label>
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <input formControlName="email" type="text" class="form-control">
                             <wari-form-field-validation-messages [wariFormControl]="form.get('email')">
                             </wari-form-field-validation-messages>
                         </div>
                     </div>
                     <div class="row form-group" [wariFormFieldValidationState]="form.get('password')">
-                        <label class="col-md-2 control-label" [wariFormRequiredLabel]="form.get('password')">Password
+                        <label class="col-md-3 control-label" [wariFormRequiredLabel]="form.get('password')">Password
                             <i class="fa fa-question-circle text-muted" tooltip="Alias" placement="top"></i>
                         </label>
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <input formControlName="password" type="password" class="form-control">
                             <wari-form-field-validation-messages [wariFormControl]="form.get('password')">
                             </wari-form-field-validation-messages>
                         </div>
                     </div>
-                    <!-- <div class="form-group" [wariFormFieldValidationState]="form.get('displayName')">
-                        <label class="col-md-2 control-label" [wariFormRequiredLabel]="form.get('displayName')">Confirmar Password
+                    <div class="row form-group" [wariFormFieldValidationState]="form.get('confirmPassword')">
+                        <label class="col-md-3 control-label" [wariFormRequiredLabel]="form.get('confirmPassword')">Confirmar Password
                             <i class="fa fa-question-circle text-muted" tooltip="Alias" placement="top"></i>
                         </label>
-                        <div class="col-md-3">
-                            <input formControlName="displayName" type="text" class="form-control">
-                            <wari-form-field-validation-messages [wariFormControl]="form.get('displayName')">
+                        <div class="col-md-9">
+                            <input formControlName="confirmPassword" type="password" class="form-control">
+                            <wari-form-field-validation-messages [wariFormControl]="form.get('confirmPassword')">
                             </wari-form-field-validation-messages>
                         </div>
-                    </div> -->
+                    </div>               
                     <br>
                     <wari-button-save [wariForm]="form" [working]="working"></wari-button-save>
                     <wari-button-cancel (wariOnCancel)="cancel()"></wari-button-cancel>

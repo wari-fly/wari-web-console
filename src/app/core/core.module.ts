@@ -6,7 +6,7 @@ import {
   TableModule,
   CardModule,
   NotificationService,
-  NotificationModule  
+  NotificationModule
 } from "patternfly-ng";
 
 import { McBreadcrumbsModule } from "ngx-breadcrumbs";
@@ -23,6 +23,9 @@ import { PreviewService } from "./data/preview.service";
 import { AuthService } from "./data/auth.service";
 import { AuthGuard } from "./guard/auth.guard";
 import { NotifyService } from "./data/notify.service";
+import { firebaseConfig } from "./config/firebase.config";
+
+
 
 @NgModule({
   imports: [
@@ -31,17 +34,10 @@ import { NotifyService } from "./data/notify.service";
     NavigationModule,
     NotificationModule,
     EmptyStateModule,
-    TableModule,   
+    TableModule,
     CardModule,
     BsDropdownModule.forRoot(),
-    AngularFireModule.initializeApp({
-      apiKey: "AIzaSyBNDdQ2o1W2uI_QhOBacOXCtsRAK4Ku4rk",
-      authDomain: "proyecto-wari.firebaseapp.com",
-      databaseURL: "https://proyecto-wari.firebaseio.com",
-      projectId: "proyecto-wari",
-      storageBucket: "proyecto-wari.appspot.com",
-      messagingSenderId: "958166775358"
-    }),
+    AngularFireModule.initializeApp(firebaseConfig),
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -62,7 +58,7 @@ import { NotifyService } from "./data/notify.service";
     NavigationModule,
     NotificationModule,
     EmptyStateModule,
-    TableModule,   
+    TableModule,
     BsDropdownModule,
     CardModule,
     AngularFireModule,
