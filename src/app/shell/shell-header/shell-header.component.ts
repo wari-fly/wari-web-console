@@ -30,4 +30,7 @@ export class ShellHeaderComponent implements OnInit {
   profile() {
     this.router.navigate(['/wari/user']);
   }
+  security(){
+    
+  }
 }

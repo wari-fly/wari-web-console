@@ -57,6 +57,7 @@ export class AuthService {
 
   // If error, console log and notify user
   private handleError(error: Error) {
+    console.log(error);
     this.message.error(error.message);
   }
 
