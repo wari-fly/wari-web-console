@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { AuthService } from '../../../core/data/auth.service';
 import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { NotifyService } from '../../../core/data/notify.service';
 
 type UserFields = 'email' | 'password';
 type FormErrors = { [u in UserFields]: string };
@@ -15,7 +16,7 @@ export class UserLoginComponent implements OnInit {
 
   form: FormGroup;
   working = false;
-
+  emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
   formErrors: FormErrors = { 'email': '', 'password': '' };
   validationMessages = {
     'email': { 'required': 'Email is required.', 'email': 'Email must be a valid email' },
@@ -26,6 +27,7 @@ export class UserLoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     public auth: AuthService,
     private router: Router,
+    private notify: NotifyService,
     private renderer: Renderer2
   ) {
     this.renderer.addClass(document.body.parentElement, 'login-pf');
@@ -37,8 +39,8 @@ export class UserLoginComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      email: [null, Validators.compose([Validators.required, Validators.email])],
-      password: [null, Validators.compose([Validators.required, Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'), Validators.minLength(6), Validators.maxLength(25)])]
+      email: [null, Validators.compose([Validators.required, Validators.pattern(this.emailRegex)])],
+      password: [null, Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(25)])]
     });
     this.form.valueChanges.subscribe((data) => this.onValueChanged(data));
     this.onValueChanged(); // reset validation messages
@@ -50,7 +52,6 @@ export class UserLoginComponent implements OnInit {
     const form = this.form;
     for (const field in this.formErrors) {
       if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'email' || field === 'password')) {
-        // clear previous error message (if any)
         this.formErrors[field] = '';
         const control = form.get(field);
         if (control && control.dirty && !control.valid) {
@@ -71,10 +72,14 @@ export class UserLoginComponent implements OnInit {
     this.working = true;
     const formValue = this.form.value;
     this.auth.login(formValue.email, formValue.password)
-      .subscribe(
-        () => {
-          this.router.navigate(['/wari']);
-          this.working = false;
-        });
+      .then((res) => {
+        this.router.navigate(['/wari']);
+        this.working = false;
+      })
+      .catch((err) => {
+        console.log('error: ' + err);
+        this.notify.update('Access denied,' + err.message, 'error');
+        this.working = false;
+      });
   }
 }

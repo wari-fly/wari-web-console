@@ -4,6 +4,7 @@ import { AuthService } from '../../../core/data/auth.service';
 import { MessageService } from '../../../core/data/message.service';
 import { FirebaseService } from '../../../core/data/firebase.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'wari-user-form',
@@ -15,7 +16,7 @@ export class UserFormComponent implements OnInit {
   form: FormGroup;
   file: File;
   working = false;
-
+  emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -34,9 +35,9 @@ export class UserFormComponent implements OnInit {
       firstName: [null, Validators.compose([Validators.required, Validators.maxLength(200)])],
       lastName: [null, Validators.compose([Validators.required, Validators.maxLength(200)])],
       displayName: [null, Validators.compose([Validators.required, Validators.maxLength(200)])],
-      email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.compose([Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'), Validators.required, Validators.minLength(6), Validators.maxLength(25)])],
-      confirmPassword: ['', Validators.compose([Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'), Validators.required, Validators.minLength(6), Validators.maxLength(25), this.isEqualPassword.bind(this)])],
+      email: ['', Validators.compose([Validators.required, Validators.pattern(this.emailRegex)])],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(25)])],
+      confirmPassword: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(25), this.isEqualPassword.bind(this)])],
     });
   }
 
@@ -61,19 +62,19 @@ export class UserFormComponent implements OnInit {
 
   save(form) {
     const val = this.form.value;
-    this.auth.signUp(val.email, val.password).subscribe(
+    this.auth.signUp(val.email, val.password).then(
       (data) => {
         const user = Object.assign({}, form.value);
-        user.uid = data.user.uid;
-        this.service.create(user).then(() => {
+        user.uid = uuid();
+        this.service.create(user).then((data) => {
           this.message.success('Success! Your changes have been saved!.');
           this.router.navigate(['../'], { relativeTo: this.route });
         });
-      },
-      err => this.message.error(err)
-    );
+      }).catch((err) => {
+        console.log('error: ' + err);
+      });
   }
-  
+
   cancel() {
     this.router.navigate(['../'], { relativeTo: this.route });
   }

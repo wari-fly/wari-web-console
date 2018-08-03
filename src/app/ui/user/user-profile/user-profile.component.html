@@ -1,22 +1,16 @@
-<div class="box" >
+<!-- <div class="box" >
   <div *ngIf="authInfo?.isLoggedIn(); then authenticated else guest">
-          <!-- template will replace this div -->
   </div>
 </div>
-
-<!-- User NOT logged in -->
 <ng-template #guest class="box">
   <h3>Howdy, GUEST</h3>
   <p class="card-text">Login to get started...</p>
   <button class="button" routerLink="/login" *ngIf="!authInfo?.isLoggedIn()">Login</button>
 </ng-template>
-
-<!-- User logged in -->
 <ng-template #authenticated>
   <div *ngIf="auth.user | async as user">
     <h3>Howdy, {{ user.displayName }}</h3>
     <img class="card-img-top" [src]="user.photoURL || 'https://api.adorable.io/avatars/109/fire.png'" width=50px>
     <button *ngIf="authInfo?.isLoggedIn()" class="button" (click)="logout()">Logout</button>
   </div>
-</ng-template>
-
+</ng-template> -->

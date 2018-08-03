@@ -41,9 +41,7 @@ export class FirebaseService {
             this.db.object(`${this.basePath}/` + uuid()).set(model);
           }
         });
-    });
-    // return new Promise((resolve, reject) => {      setTimeout(() => {        resolve(x);      }, 500);    });
-    //return this.get(model.key);
+    }); 
   }
 
   async create(user: User) {

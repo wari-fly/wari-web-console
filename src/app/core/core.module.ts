@@ -12,12 +12,14 @@ import {
 import { McBreadcrumbsModule } from "ngx-breadcrumbs";
 import { BsDropdownModule } from "ngx-bootstrap";
 
-import { AngularFireModule } from "angularfire2";
-import { AngularFireStorageModule } from "angularfire2/storage";
-import { AngularFireDatabaseModule } from "angularfire2/database";
-import { AngularFireAuthModule } from 'angularfire2/auth';
+// AngularFire2 Modules
+import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireFunctionsModule } from 'angularfire2/functions';
+import { AngularFireDatabaseModule } from "angularfire2/database";
+
 import { FirebaseService } from "./data/firebase.service";
 import { PreviewService } from "./data/preview.service";
 import { AuthService } from "./data/auth.service";
@@ -37,7 +39,8 @@ import { firebaseConfig } from "./config/firebase.config";
     TableModule,
     CardModule,
     BsDropdownModule.forRoot(),
-    AngularFireModule.initializeApp(firebaseConfig),
+
+    AngularFireModule.initializeApp(firebaseConfig, "wari"),
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -61,6 +64,7 @@ import { firebaseConfig } from "./config/firebase.config";
     TableModule,
     BsDropdownModule,
     CardModule,
+
     AngularFireModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
