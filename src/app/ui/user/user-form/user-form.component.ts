@@ -14,7 +14,6 @@ export class UserFormComponent implements OnInit {
 
   form: FormGroup;
   file: File;
-  user: any;
   working = false;
 
   constructor(
@@ -61,19 +60,20 @@ export class UserFormComponent implements OnInit {
   }
 
   save(form) {
-    this.auth.signup(this.form.value['email'], this.form.value['password'])
-      .then(value => {
-        const user = Object.assign(this.user || {}, form.value);
-        user.uid = value.user.uid;
+    const val = this.form.value;
+    this.auth.signUp(val.email, val.password).subscribe(
+      (data) => {
+        const user = Object.assign({}, form.value);
+        user.uid = data.user.uid;
         this.service.create(user).then(() => {
           this.message.success('Success! Your changes have been saved!.');
           this.router.navigate(['../'], { relativeTo: this.route });
         });
-      })
-      .catch(err => {
-        this.message.error(err.message);
-      });
+      },
+      err => this.message.error(err)
+    );
   }
+  
   cancel() {
     this.router.navigate(['../'], { relativeTo: this.route });
   }

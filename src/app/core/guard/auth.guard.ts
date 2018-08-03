@@ -20,15 +20,16 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
 
-    return this.auth.user.pipe(
+    return this.auth.authInfo$.pipe(
+      map(authInfo => authInfo.isLoggedIn()),
       take(1),
-      map(state => !!state),
-      tap(loggedIn => {
-        if (!loggedIn) {
+      tap(allowed => {
+        if (!allowed) {
           this.notify.update('Access denied, You must be logged in!', 'error');
           this.router.navigate(['/wari/login']);
+        } else {
+          this.notify.update('Access allowed', 'success');
         }
-      })
-    );
+      }), );
   }
 }

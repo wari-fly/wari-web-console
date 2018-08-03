@@ -33,11 +33,6 @@ export class UserLoginComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.auth.user.subscribe(data => {
-      if (data) {
-        this.afterSignIn();
-      }
-    });
   }
 
   buildForm() {
@@ -74,13 +69,12 @@ export class UserLoginComponent implements OnInit {
 
   login(form) {
     this.working = true;
-    this.auth.login(this.form.value['email'], this.form.value['password']);
-    this.working = false;
-    return this.afterSignIn();
-  }
-
-
-   afterSignIn() {
-    return this.router.navigate(['/wari']);
+    const formValue = this.form.value;
+    this.auth.login(formValue.email, formValue.password)
+      .subscribe(
+        () => {
+          this.router.navigate(['/wari']);
+          this.working = false;
+        });
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../core/data/auth.service';
+import { AuthInfo } from '../../../core/guard/auth-info';
 
 @Component({
   selector: 'wari-user-profile',
@@ -7,10 +8,11 @@ import { AuthService } from '../../../core/data/auth.service';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-
+  authInfo: AuthInfo;
   constructor(public auth: AuthService) { }
 
   ngOnInit() {
+    this.auth.authInfo$.subscribe(authInfo => this.authInfo = authInfo);
   }
 
   logout() {

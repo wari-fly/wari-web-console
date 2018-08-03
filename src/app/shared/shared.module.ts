@@ -18,6 +18,7 @@ import { DropZoneFileComponent } from './components/drop-zone-file/drop-zone-fil
 import { ButtonLoginComponent } from './components/button-login/button-login.component';
 import { NotifyMessageComponent } from './components/notify-message/notify-message.component';
 import { ReadMultiFileComponent } from './components/read-multi-file/read-multi-file.component';
+import { SafeUrlPipe } from './pipe/safe-url.pipe';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import { ReadMultiFileComponent } from './components/read-multi-file/read-multi-
     NotifyMessageComponent,
 
     TruncatePipe,
-    FileSizePipe
+    FileSizePipe,
+    SafeUrlPipe
 
   ],
   exports: [
@@ -68,7 +70,8 @@ import { ReadMultiFileComponent } from './components/read-multi-file/read-multi-
     NotifyMessageComponent,
 
     TruncatePipe,
-    FileSizePipe
+    FileSizePipe,
+    SafeUrlPipe
   ]
 })
 export class SharedModule { }
