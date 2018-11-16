@@ -61,7 +61,7 @@ export class MaintenanceCreateComponent implements OnInit {
       this.files = $event.files;
       this.data = $event.data;
     } else {
-      this.message.warning('Warning! The file extension is not as required.');
+      this.message.warning('¡Advertencia! La extensión del archivo no es la requerida.');
     }
   }
 
@@ -71,11 +71,11 @@ export class MaintenanceCreateComponent implements OnInit {
 
   save(form) {
     if (!form.value.coordenadas || form.value.coordenadas.length === 0) {
-      this.message.warning('Warning! Is required to add at least one line.');
+      this.message.warning('¡Advertencia! Se requiere agregar al menos una línea en coordenadas gps.');
       return;
     }
     if (!this.files) {
-      this.message.warning('Warning! Is required to add one image to archeological site.');
+      this.message.warning('¡Advertencia! Se requiere agregar una imagen al sitio arqueológico.');
       return;
     }
     const files = this.files;
@@ -88,7 +88,7 @@ export class MaintenanceCreateComponent implements OnInit {
     this.dataservice.upload(model, this.progress).then(() => {
       this.files = null;
       this.data = [];
-      this.message.success('Success! The archeological site has been created..');
+      this.message.success('Correcto! El sitio arqueológico ha sido creado.');
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

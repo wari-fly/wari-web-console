@@ -16,11 +16,11 @@ export class UserListComponent implements OnInit {
   allRows: User[] = [];
 
   columns: any[] = [
-    { name: 'uid', prop: 'uid', sortable: true },
-    { name: 'First Name', prop: 'firstName', sortable: true },
-    { name: 'Last Name', prop: 'lastName', sortable: false },
-    { name: 'E-Mail', prop: 'email', sortable: false },
-    { name: 'Display Name', prop: 'displayName', sortable: false }
+    { name: 'Id', prop: 'uid', sortable: true },
+    { name: 'Nombres', prop: 'firstName', sortable: true },
+    { name: 'Apellidos', prop: 'lastName', sortable: false },
+    { name: 'Correo Electronico', prop: 'email', sortable: false },
+    { name: 'Usuario (Alias)', prop: 'displayName', sortable: false }
   ];
 
   paginationConfig: PaginationConfig = {
@@ -46,9 +46,8 @@ export class UserListComponent implements OnInit {
       .subscribe(result => {
         this.allRows = result.map(c => ({ key: c.payload.key, ...c.payload.val() }));
         this.updateRows();
-        this.message.success("Successfully loaded Wari users");
       }, error => {
-        this.message.error("Error loaded Wari users");
+        this.message.error("Error cargado los usuarios.");
       });
   }
 

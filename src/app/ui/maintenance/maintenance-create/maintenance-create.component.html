@@ -1,7 +1,7 @@
 <div class="padding-1">
   <div class="row">
     <div class="col-sm-12">
-      <h4>Creacion de Maintenance</h4>
+      <h4>Creacion de Registro</h4>
       <hr/>
     </div>
   </div>
@@ -32,7 +32,7 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label class="control-label">Imagenes
-                  <i class="fa fa-question-circle text-muted" tooltip="Imagenes del sitio arquilogico" placement="top"></i>
+                  <i class="fa fa-question-circle text-muted" tooltip="Imagenes del sitio arqueológico" placement="top"></i>
                 </label>
                 <wari-read-multi-file [showFileName]="false" (complete)="onFileChange($event)"></wari-read-multi-file>
               </div>
@@ -41,10 +41,10 @@
           <div class="row">
             <div class="col-md-4">
               <div class="form-group" [wariFormFieldValidationState]="form.get('nombre')">
-                <label class="control-label" [wariFormRequiredLabel]="form.get('nombre')">Nombre Sitio Arquiólogico
-                  <i class="fa fa-question-circle text-muted" tooltip="Nombre Sitio Arquiologico" placement="top"></i>
+                <label class="control-label" [wariFormRequiredLabel]="form.get('nombre')">Nombre Sitio Arqueológico
+                  <i class="fa fa-question-circle text-muted" tooltip="Nombre Sitio Arqueologico" placement="top"></i>
                 </label>
-                <input formControlName="nombre" type="text" class="form-control">
+                <input formControlName="nombre" type="text" class="form-control" placeholder="Nombre del sitio arqueologico">
                 <wari-form-field-validation-messages [wariFormControl]="form.get('nombre')">
                 </wari-form-field-validation-messages>
               </div>
@@ -54,7 +54,7 @@
                 <label class="control-label" [wariFormRequiredLabel]="form.get('ubicacion')">Ubicación geográfica
                   <i class="fa fa-question-circle text-muted" tooltip="relacion con los pueblos y ciudades cercanas" placement="top"></i>
                 </label>
-                <input formControlName="ubicacion" type="text" class="form-control">
+                <input formControlName="ubicacion" type="text" class="form-control" placeholder="Relacionado con los pueblos y ciudades cercanas">
                 <wari-form-field-validation-messages [wariFormControl]="form.get('ubicacion')">
                 </wari-form-field-validation-messages>
               </div>
@@ -65,7 +65,7 @@
                   <i class="fa fa-question-circle text-muted" tooltip="posicion cronologica del sitio, determinada a traves del analisis de los materiales culturales"
                     placement="top"></i>
                 </label>
-                <input formControlName="periodo" type="text" class="form-control">
+                <input formControlName="periodo" type="text" class="form-control" placeholder="Posicion cronológica del sitio, determinada a traves del analisis de los materiales culturales">
                 <wari-form-field-validation-messages [wariFormControl]="form.get('periodo')">
                 </wari-form-field-validation-messages>
               </div>
@@ -77,7 +77,7 @@
                 <label class="control-label" [wariFormRequiredLabel]="form.get('altitud')">Altitud GPS
                   <i class="fa fa-question-circle text-muted" tooltip="información obtenida de los planos catastrales" placement="top"></i>
                 </label>
-                <input formControlName="altitud" type="text" class="form-control">
+                <input formControlName="altitud" type="text" class="form-control" placeholder="Información obtenida de los planos catastrales">
                 <wari-form-field-validation-messages [wariFormControl]="form.get('altitud')">
                 </wari-form-field-validation-messages>
               </div>
@@ -87,7 +87,7 @@
                 <label class="control-label" [wariFormRequiredLabel]="form.get('antecedente')">Antecedentes
                   <i class="fa fa-question-circle text-muted" tooltip="investigaciones previas realizadas" placement="top"></i>
                 </label>
-                <input formControlName="antecedente" type="text" class="form-control">
+                <input formControlName="antecedente" type="text" class="form-control" placeholder="Investigaciones previas realizadas">
                 <wari-form-field-validation-messages [wariFormControl]="form.get('antecedente')">
                 </wari-form-field-validation-messages>
               </div>
@@ -97,7 +97,7 @@
                 <label class="control-label" [wariFormRequiredLabel]="form.get('estado')">Estado Conservación
                   <i class="fa fa-question-circle text-muted" tooltip="balance preliminar de las condiciones de deterioro del sitio" placement="top"></i>
                 </label>
-                <input formControlName="estado" type="text" class="form-control">
+                <input formControlName="estado" type="text" class="form-control" placeholder="Balance preliminar de las condiciones de deterioro del sitio">
                 <wari-form-field-validation-messages [wariFormControl]="form.get('estado')">
                 </wari-form-field-validation-messages>
               </div>
@@ -115,7 +115,7 @@
                         </button>
                       </div>
                     </td>
-                    <td colspan="3"> </td>
+                    <td colspan="3"> Lista de Coordenadas GPS (Latitud,Longitud)</td>
                   </tr>
                   <tr>
                     <td class="text-right">#</td>

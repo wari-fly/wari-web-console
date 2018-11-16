@@ -51,9 +51,8 @@ export class MaintenanceViewComponent implements OnInit {
         this.files = this.site.files;
         this.allRows=this.site.coordenadas;
         this.updateRows();
-        this.messageService.success("Successfully loaded Wari Proyects");
       }, error => {
-        this.messageService.error("Error loaded Wari Proyects");
+        this.messageService.error("Error cargando datos del servidor.");
       });
   }
   

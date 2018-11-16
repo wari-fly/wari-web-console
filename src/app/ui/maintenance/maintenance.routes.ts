@@ -8,21 +8,21 @@ export const MaintenanceRoutes: Routes = [
   {
     path: "",
     component: MaintenanceListComponent,
-    data: { breadcrumbs: true, text: "Maintenance" }
+    data: { breadcrumbs: true, text: "Wari" }
   },
   {
     path: "create",
     component: MaintenanceCreateComponent,
-    data: { breadcrumbs: true, text: "Create" }
+    data: { breadcrumbs: true, text: "Nuevo Registro" }
   },
   {
     path: "view/:key",
     component: MaintenanceViewComponent,
-    data: { breadcrumbs: true, text: "View" }
+    data: { breadcrumbs: true, text: "Vesualizacion Registro" }
   },
   {
     path: "edit/:key",
     component: MaintenanceEditComponent,
-    data: { breadcrumbs: true, text: "Edit" }
+    data: { breadcrumbs: true, text: "Editar Registro" }
   }
 ];

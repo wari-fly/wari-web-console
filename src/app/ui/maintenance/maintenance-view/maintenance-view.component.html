@@ -1,14 +1,14 @@
 <div class="padding-1">
   <div class="row">
     <div class="col-sm-12">
-      <h4>View of Maintenance</h4>
+      <h4>Visualización del sitio arqueológico</h4>
       <hr/>
     </div>
   </div>
   <div class="cards-pf pfng-isc-ex-container"  *ngIf="site">
     <div class="padding-top-10">
       <div class="col-sm-12">
-        <h5>List Images</h5>
+        <h5>Lista de Imagenes</h5>
       </div>
     </div>
     <div class="container-fluid pfng-fluid-width-container">
@@ -35,8 +35,8 @@
         </fieldset>
         <dl class="dl-horizontal left">
           <dt>
-            Nombre Sitio Arquiólogico
-            <span ngbTooltip="Nombre Sitio Arquiologico." placement="right" class="pficon pficon-help text-muted small"></span>
+            Nombre Sitio Arqueológico
+            <span ngbTooltip="Nombre Sitio Arqueológico." placement="right" class="pficon pficon-help text-muted small"></span>
           </dt>
           <dd *ngIf="site.nombre">{{site.nombre}}</dd>
           <dd *ngIf="!site.nombre">

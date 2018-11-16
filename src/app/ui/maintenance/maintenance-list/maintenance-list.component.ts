@@ -1,11 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { CardConfig, CardAction } from "patternfly-ng";
-
-import {
-  AngularFireStorage,
-  AngularFireStorageReference,
-  AngularFireUploadTask
-} from "angularfire2/storage";
+import { CardConfig } from "patternfly-ng";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MessageService } from "../../../core/data/message.service";
 import { FirebaseService } from "../../../core/data/firebase.service";
@@ -35,9 +29,8 @@ export class MaintenanceListComponent implements OnInit {
       .snapshotChanges()
       .subscribe(result => {
         this.sites = result.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-        this.messageService.success("Successfully loaded Wari Proyects");
       }, error => {
-        this.messageService.error("Error loaded Wari Proyects");
+        this.messageService.error("Error recuperando registros del servidor.");
       });
   }
   create() {

@@ -54,7 +54,7 @@ export class UserFormComponent implements OnInit {
     let regex = new RegExp("(.*?)\.(jpg|png|jpeg)$");
     let correctfile = regex.test($event.fileName);
     if (!correctfile) {
-      this.message.warning('Warning! The file extension is not as required.');
+      this.message.warning('¡Advertencia! La extensión del archivo no es la requerida.');
       return;
     }
     this.file = $event.data;
@@ -67,7 +67,7 @@ export class UserFormComponent implements OnInit {
         const user = Object.assign({}, form.value);
         user.uid = uuid();
         this.service.create(user).then((data) => {
-          this.message.success('Success! Your changes have been saved!.');
+          this.message.success('Correcto! Se han guardado los cambios!');
           this.router.navigate(['../'], { relativeTo: this.route });
         });
       }).catch((err) => {

@@ -78,7 +78,7 @@ export class UserLoginComponent implements OnInit {
       })
       .catch((err) => {
         console.log('error: ' + err);
-        this.notify.update('Access denied,' + err.message, 'error');
+        this.notify.update('Acceso denegado,' + err.message, 'error');
         this.working = false;
       });
   }
